@@ -47,4 +47,12 @@ public class PaginationTest {
         Pagination pagination = new Pagination(totalPost, currentPage);
         assertEquals(lastPage, pagination.getLastPage());
     }
+
+    @DisplayName("현재 페이지 번호가 총 페이지 수보다 큰 경우 현재 페이지 번호를 총 페이지 수로 반환")
+    @ParameterizedTest(name = "현재 페이지 번호: {1}, 총 페이지 수: {2}, 변경된 현재 페이지 번호: {3}")
+    @CsvSource({"723, 78, 73, 73", "321, 37, 33, 33"})
+    void getCurrentPage(int totalPost, int currentPage, int totalPage, int newCurrentPage) {
+        Pagination pagination = new Pagination(totalPost, currentPage);
+        assertEquals(newCurrentPage, pagination.getCurrentPage());
+    }
 }
