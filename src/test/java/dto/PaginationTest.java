@@ -40,4 +40,11 @@ public class PaginationTest {
         assertEquals(firstPage, pagination.getFirstPage());
     }
 
+    @DisplayName("화면에 노출되는 마지막 페이지 번호 계산")
+    @ParameterizedTest(name = "현재 페이지 번호: {1}, 마지막 페이지 번호: {2}")
+    @CsvSource({"156, 9, 10", "1838, 91, 100", "472, 31, 40"})
+    void getLastPage(int totalPost, int currentPage, int lastPage) {
+        Pagination pagination = new Pagination(totalPost, currentPage);
+        assertEquals(lastPage, pagination.getLastPage());
+    }
 }
