@@ -8,12 +8,14 @@ public class Pagination {
     private int totalPage;
     private int currentPage;
     private int firstPage;
+    private int lastPage;
 
     public Pagination(int totalPost, int currentPage) {
         this.totalPost = totalPost;
         this.currentPage = currentPage;
-        this.totalPage = (this.totalPost - 1) / POST_LIMIT + 1;
-        this.firstPage = (this.currentPage - 1) / PAGE_LIMIT * PAGE_LIMIT + 1;
+        totalPage = (totalPost - 1) / POST_LIMIT + 1;
+        firstPage = (this.currentPage - 1) / PAGE_LIMIT * PAGE_LIMIT + 1;
+        lastPage = firstPage + PAGE_LIMIT - 1;
     }
 
     public int getTotalPage() {
@@ -22,5 +24,9 @@ public class Pagination {
 
     public int getFirstPage() {
         return firstPage;
+    }
+
+    public int getLastPage() {
+        return lastPage;
     }
 }
