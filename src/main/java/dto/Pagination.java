@@ -11,9 +11,12 @@ public class Pagination {
     private int lastPage;
 
     public Pagination(int totalPost, int currentPage) {
-        this.totalPost = totalPost;
         this.currentPage = currentPage;
+        this.totalPost = totalPost;
         totalPage = (totalPost - 1) / POST_LIMIT + 1;
+        if (this.currentPage > totalPage) {
+            this.currentPage = totalPage;
+        }
         firstPage = (this.currentPage - 1) / PAGE_LIMIT * PAGE_LIMIT + 1;
         lastPage = firstPage + PAGE_LIMIT - 1;
     }
@@ -28,5 +31,9 @@ public class Pagination {
 
     public int getLastPage() {
         return lastPage;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
     }
 }
