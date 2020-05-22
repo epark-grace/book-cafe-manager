@@ -48,6 +48,14 @@ public class PaginationTest {
         assertEquals(lastPage, pagination.getLastPage());
     }
 
+    @DisplayName("마지막 페이지 번호가 총 페이지 수보다 큰 경우 마지막 페이지 번호를 총 페이지 수로 반환")
+    @ParameterizedTest(name = "마지막 페이지 번호: {2}, 총 페이지 수: {3}, 변경된 마지막 페이지 번호: {4}")
+    @CsvSource({"853, 82, 90, 86, 86", "1885,185, 190, 189, 189"})
+    void getLastPage_lastPageIsAboveTotalPage(int totalPost, int currentPage, int lastPage, int totalPage, int newLastPage) {
+        Pagination pagination = new Pagination(totalPost, currentPage);
+        assertEquals(newLastPage, pagination.getLastPage());
+    }
+
     @DisplayName("현재 페이지 번호가 총 페이지 수보다 큰 경우 현재 페이지 번호를 총 페이지 수로 반환")
     @ParameterizedTest(name = "현재 페이지 번호: {1}, 총 페이지 수: {2}, 변경된 현재 페이지 번호: {3}")
     @CsvSource({"723, 78, 73, 73", "321, 37, 33, 33"})
