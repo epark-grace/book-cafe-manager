@@ -19,6 +19,9 @@ public class Pagination {
         }
         firstPage = (this.currentPage - 1) / PAGE_LIMIT * PAGE_LIMIT + 1;
         lastPage = firstPage + PAGE_LIMIT - 1;
+        if (lastPage > totalPage) {
+            lastPage = totalPage;
+        }
     }
 
     public int getTotalPage() {
