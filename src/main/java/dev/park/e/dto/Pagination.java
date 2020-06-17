@@ -1,4 +1,4 @@
-package dto;
+package dev.park.e.dto;
 
 public class Pagination {
 

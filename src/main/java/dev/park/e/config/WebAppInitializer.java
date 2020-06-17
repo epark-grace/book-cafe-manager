@@ -1,11 +1,11 @@
-package config;
+package dev.park.e.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] {ApplicationConfig.class, DatabaseConfig.class};
+        return new Class<?>[] {ApplicationConfig.class, DatabaseConfig.class, MybatisConfig.class};
     }
 
     @Override

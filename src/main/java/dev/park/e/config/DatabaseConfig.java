@@ -1,4 +1,4 @@
-package config;
+package dev.park.e.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
