@@ -19,8 +19,7 @@ public class DatabaseConfig implements TransactionManagementConfigurer {
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig("/application.properties");
-        HikariDataSource dataSource = new HikariDataSource(config);
-        return dataSource;
+        return new HikariDataSource(config);
     }
 
     @Override
