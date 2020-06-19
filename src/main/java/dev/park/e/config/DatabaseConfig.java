@@ -22,14 +22,9 @@ public class DatabaseConfig implements TransactionManagementConfigurer {
         return new HikariDataSource(config);
     }
 
-    @Override
-    public TransactionManager annotationDrivenTransactionManager() {
-        return transactionManager();
-    }
-
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    @Override
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
-
 }
