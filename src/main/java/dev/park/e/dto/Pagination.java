@@ -2,18 +2,18 @@ package dev.park.e.dto;
 
 public class Pagination {
 
-    private final int POST_LIMIT = 10;
+    private final int ROW_LIMIT = 10;
     private final int PAGE_LIMIT = 10;
-    private int totalPost;
+    private int totalRow;
     private int totalPage;
     private int currentPage;
     private int firstPage;
     private int lastPage;
 
-    public Pagination(int totalPost, int currentPage) {
+    public Pagination(int totalRow, int currentPage) {
         this.currentPage = currentPage;
-        this.totalPost = totalPost;
-        totalPage = (totalPost - 1) / POST_LIMIT + 1;
+        this.totalRow = totalRow;
+        totalPage = (totalRow - 1) / ROW_LIMIT + 1;
         if (this.currentPage > totalPage) {
             this.currentPage = totalPage;
         }
