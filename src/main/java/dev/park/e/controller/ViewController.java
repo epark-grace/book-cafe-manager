@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ViewController {
     @GetMapping("/")
     public String main() {
-        return "redirect:/1";
+        return "index";
     }
 
-    @GetMapping("/{page}")
-    public String bookList(@PathVariable(name = "page") String page) {
-        return "bookList";
+    @GetMapping("/book-list/{currentPage}")
+    public String bookList(@PathVariable(name = "currentPage") String page) {
+        return "book_list";
     }
 }
