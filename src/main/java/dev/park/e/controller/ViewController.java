@@ -11,6 +11,11 @@ public class ViewController {
         return "index";
     }
 
+    @GetMapping("/book-list")
+    public String defaultBookList() {
+        return "redirect:/book-list/1";
+    }
+
     @GetMapping("/book-list/{currentPage}")
     public String bookList(@PathVariable(name = "currentPage") String page) {
         return "book_list";
