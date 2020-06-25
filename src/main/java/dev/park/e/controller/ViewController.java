@@ -17,7 +17,5 @@ public class ViewController {
     }
 
     @GetMapping("/book-list/{currentPage}")
-    public String bookList(@PathVariable(name = "currentPage") String page) {
-        return "book_list";
-    }
+    public String bookList(@PathVariable(name = "currentPage") String page) { return "book_list"; }
 }
