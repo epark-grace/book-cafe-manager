@@ -39,4 +39,17 @@ public class Pagination {
     public int getCurrentPage() {
         return currentPage;
     }
+
+    @Override
+    public String toString() {
+        return "Pagination{" +
+                "ROW_LIMIT=" + ROW_LIMIT +
+                ", PAGE_LIMIT=" + PAGE_LIMIT +
+                ", bookCount=" + bookCount +
+                ", pageCount=" + pageCount +
+                ", currentPage=" + currentPage +
+                ", firstPage=" + firstPage +
+                ", lastPage=" + lastPage +
+                '}';
+    }
 }
