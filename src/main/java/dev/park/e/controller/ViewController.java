@@ -28,8 +28,7 @@ public class ViewController {
 
     @GetMapping("/book-list/{currentPage}")
     public String bookList(@PathVariable(name = "currentPage") int currentPage, Model model) {
-        Pagination pagination = paginationService.getPagination(currentPage);
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagination", paginationService.getPagination(currentPage));
         return "book_list";
     }
 }
