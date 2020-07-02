@@ -33,16 +33,10 @@
   </tbody>
 </table>
 
-<c:choose>
-  <c:when test="${pagination.firstPage != 1}">
-    <a href="/book-list/1" title="첫 페이지로"><<</a>
-    <a href="/book-list/${currentPage - 10}" title="이전 10페이지로"><</a>
-  </c:when>
-  <c:otherwise>
-    <a class="disabled" title="첫 페이지로"><<</a>
-    <a class="disabled" title="이전 10페이지로"><</a>
-  </c:otherwise>
-</c:choose>
+<c:if test="${pagination.firstPage != 1}">
+  <a href="/book-list/1" title="첫 페이지로"><<</a>
+  <a href="/book-list/${currentPage - 10}" title="이전 10페이지로"><</a>
+</c:if>
 <c:forEach var="currentPage" begin="${pagination.firstPage}" end="${pagination.lastPage}">
   <c:choose>
     <c:when test="${currentPage == pagination.currentPage}">
@@ -53,16 +47,10 @@
     </c:otherwise>
   </c:choose>
 </c:forEach>
-<c:choose>
-  <c:when test="${pagination.pageCount != pagination.lastPage}">
-    <a href="/book-list/1" title="다음 10페이지로">></a>
-    <a href="/book-list/${currentPage - 10}" title="마지막 페이지로">>></a>
-  </c:when>
-  <c:otherwise>
-    <a class="disabled" title="다음 10페이지로">></a>
-    <a class="disabled" title="마지막 페이지로">>></a>
-  </c:otherwise>
-</c:choose>
+<c:if test="${pagination.pageCount != pagination.lastPage}">
+  <a href="/book-list/1" title="다음 10페이지로">></a>
+  <a href="/book-list/${currentPage - 10}" title="마지막 페이지로">>></a>
+</c:if>
 
 </body>
 </html>
