@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <title>Title</title>
+  <link rel="stylesheet" href="/static/css/book_list.css">
 </head>
 <body>
 <select id="criteria">
@@ -30,5 +32,37 @@
   <tbody>
   </tbody>
 </table>
+
+<c:choose>
+  <c:when test="${pagination.firstPage != 1}">
+    <a href="/book-list/1" title="첫 페이지로"><<</a>
+    <a href="/book-list/${currentPage - 10}" title="이전 10페이지로"><</a>
+  </c:when>
+  <c:otherwise>
+    <a class="disabled" title="첫 페이지로"><<</a>
+    <a class="disabled" title="이전 10페이지로"><</a>
+  </c:otherwise>
+</c:choose>
+<c:forEach var="currentPage" begin="${pagination.firstPage}" end="${pagination.lastPage}">
+  <c:choose>
+    <c:when test="${currentPage == pagination.currentPage}">
+      <a href="/book-list/${currentPage}" class="current">${currentPage}</a>
+    </c:when>
+    <c:otherwise>
+      <a href="/book-list/${currentPage}">${currentPage}</a>
+    </c:otherwise>
+  </c:choose>
+</c:forEach>
+<c:choose>
+  <c:when test="${pagination.pageCount != pagination.lastPage}">
+    <a href="/book-list/1" title="다음 10페이지로">></a>
+    <a href="/book-list/${currentPage - 10}" title="마지막 페이지로">>></a>
+  </c:when>
+  <c:otherwise>
+    <a class="disabled" title="다음 10페이지로">></a>
+    <a class="disabled" title="마지막 페이지로">>></a>
+  </c:otherwise>
+</c:choose>
+
 </body>
 </html>
