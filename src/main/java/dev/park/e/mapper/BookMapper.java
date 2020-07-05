@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BookMapper {
     int insertBook(List<Book> book);
+    int deleteBookByid(int id);
 }

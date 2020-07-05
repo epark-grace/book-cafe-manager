@@ -9,4 +9,7 @@
         </foreach>
     </insert>
 
+    <delete id="deleteBookById">
+        DELETE FROM book WHERE id = #{id}
+    </delete>
 </mapper>
