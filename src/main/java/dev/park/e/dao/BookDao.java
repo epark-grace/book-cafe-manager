@@ -18,4 +18,8 @@ public class BookDao {
     public int insertBook(List<Book> books) {
         return sqlSession.insert("dev.park.e.mapper.BookMapper.insertBook", books);
     }
+
+    public int deleteBookById(int id) {
+        return sqlSession.delete("dev.park.e.mapper.BookMapper.deleteBookById", id);
+    }
 }
