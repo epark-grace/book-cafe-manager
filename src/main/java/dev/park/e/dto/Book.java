@@ -3,10 +3,11 @@ package dev.park.e.dto;
 import java.util.Date;
 
 public class Book {
-    private String category;
+    private Integer categoryId;
     private String title;
+    private String author;
     private String publisher;
-    private int volume;
+    private Integer volume;
     private String shelfName;
     private short rowNumber;
     private boolean isFinished;
@@ -14,12 +15,12 @@ public class Book {
     private Date registrationDate;
     private Date modificationDate;
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getTitle() {
@@ -30,6 +31,14 @@ public class Book {
         this.title = title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getPublisher() {
         return publisher;
     }
@@ -38,11 +47,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public int getVolume() {
+    public Integer getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
     }
 
