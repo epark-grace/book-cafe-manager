@@ -20,4 +20,8 @@ public class BookService {
     public int addBooks(List<Book> books) {
         return bookDao.insertBook(books);
     }
+
+    public int removeBook(int id) {
+        return bookDao.deleteBookById(id);
+    }
 }
