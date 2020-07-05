@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.park.e.mapper.BookMapper">
-    <insert id="insertBook" parameterType="list" useGeneratedKeys="true" keyColumn="id">
+
+    <insert id="insertBook" parameterType="list">
         INSERT INTO book (category_id, title, publisher, author, volume, shelf_name, row_number, is_finished, is_for_adult) VALUES
         <foreach collection="list" item="book" separator=",">
             (#{book.categoryId}, #{book.title}, #{book.publisher}, #{book.author}, #{book.volume}, #{book.shelfName}, #{book.rowNumber}, #{book.isFinished}, #{book.isForAdult})
         </foreach>
     </insert>
+
 </mapper>
