@@ -2,9 +2,7 @@ package dev.park.e.controller;
 
 import dev.park.e.dto.Book;
 import dev.park.e.service.BookService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +19,7 @@ public class BookController {
     public int postBooks(@RequestBody List<Book> books) {
         return bookService.addBooks(books);
     }
+
+    @DeleteMapping("api/books/{id}")
+    public int removeBook(@PathVariable(name = "id") int id) { return bookService.removeBook(id); }
 }
