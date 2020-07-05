@@ -46,6 +46,7 @@ hs_err_pid*
 out/
 *.iml
 
-src/main/resources/
+src/main/resources/application.properties
+src/main/resources/log4j2.xml
 docs/
 
