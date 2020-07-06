@@ -6,7 +6,7 @@
         SELECT COUNT(*) FROM BOOK
     </select>
 
-    <insert id="insertBook" parameterType="list">
+    <insert id="insertBook" parameterType="list" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO book (category_id, title, publisher, author, volume, shelf_name, row_number, is_finished, is_for_adult) VALUES
         <foreach collection="list" item="book" separator=",">
             (#{book.categoryId}, #{book.title}, #{book.publisher}, #{book.author}, #{book.volume}, #{book.shelfName}, #{book.rowNumber}, #{book.isFinished}, #{book.isForAdult})
