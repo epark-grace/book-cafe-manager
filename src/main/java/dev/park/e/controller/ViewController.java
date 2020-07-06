@@ -1,7 +1,6 @@
 package dev.park.e.controller;
 
-import dev.park.e.dto.Pagination;
-import dev.park.e.service.PaginationService;
+import dev.park.e.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ViewController {
 
-    private PaginationService paginationService;
+    private BookService bookService;
 
-    public ViewController(PaginationService paginationService) {
-        this.paginationService = paginationService;
+    public ViewController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping("/")
@@ -28,7 +27,7 @@ public class ViewController {
 
     @GetMapping("/book-list/{currentPage}")
     public String bookList(@PathVariable(name = "currentPage") int currentPage, Model model) {
-        model.addAttribute("pagination", paginationService.getPagination(currentPage));
+        model.addAttribute("pagination", bookService.getPagination(currentPage));
         return "book_list";
     }
 }
