@@ -15,6 +15,10 @@ public class BookDao {
         this.sqlSession = sqlSession;
     }
 
+    public int selectBookCount() {
+        return sqlSession.selectOne("dev.park.e.mapper.BookMapper.selectBookCount");
+    }
+
     public int insertBook(List<Book> books) {
         return sqlSession.insert("dev.park.e.mapper.BookMapper.insertBook", books);
     }
