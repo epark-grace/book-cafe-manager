@@ -3,6 +3,7 @@ package dev.park.e.dto;
 import java.util.Date;
 
 public class Book {
+    private Integer id;
     private Integer categoryId;
     private String title;
     private String author;
@@ -14,6 +15,14 @@ public class Book {
     private boolean isForAdult;
     private Date registrationDate;
     private Date modificationDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getCategoryId() {
         return categoryId;
