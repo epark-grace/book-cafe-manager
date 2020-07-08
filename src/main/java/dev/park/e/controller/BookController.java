@@ -16,7 +16,7 @@ public class BookController {
     }
 
     @PostMapping("api/books")
-    public int postBooks(@RequestBody List<Book> books) {
+    public int addBooks(@RequestBody List<Book> books) {
         return bookService.addBooks(books);
     }
 
