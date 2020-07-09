@@ -22,4 +22,10 @@ public class BookController {
 
     @DeleteMapping("api/books/{id}")
     public int removeBook(@PathVariable(name = "id") int id) { return bookService.removeBook(id); }
+
+    @GetMapping("api/books/{id}")
+    public Book getBook(@PathVariable(name = "id") int id) {
+        return bookService.getBook(id);
+    }
+
 }
