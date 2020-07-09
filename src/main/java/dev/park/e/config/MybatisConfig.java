@@ -18,6 +18,8 @@ public class MybatisConfig {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mapper/*Mapper.xml"));
-        return factoryBean.getObject();
+        SqlSessionFactory sqlSessionFactory = factoryBean.getObject();
+        sqlSessionFactory.getConfiguration().setMapUnderscoreToCamelCase(true);
+        return sqlSessionFactory;
     }
 }
