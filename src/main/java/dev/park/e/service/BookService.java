@@ -32,4 +32,10 @@ public class BookService {
     public int removeBook(int id) {
         return bookMapper.deleteBookById(id);
     }
+
+    @Transactional(readOnly = true)
+    public Book getBook(int id) {
+        return bookMapper.selectBookById(id);
+    }
+
 }
