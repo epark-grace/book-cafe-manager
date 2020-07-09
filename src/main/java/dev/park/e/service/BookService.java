@@ -38,4 +38,9 @@ public class BookService {
         return bookMapper.selectBookById(id);
     }
 
+    @Transactional(readOnly = true)
+    public List<Book> getBookList(int currentPage) {
+        int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
+        return bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT);
+    }
 }
