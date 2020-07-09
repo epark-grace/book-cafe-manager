@@ -17,6 +17,7 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
 
+    @Transactional(readOnly = true)
     public Pagination getPagination(int currentPage) {
         return new Pagination(bookMapper.selectBookCount(), currentPage);
     }
@@ -27,6 +28,7 @@ public class BookService {
         return books;
     }
 
+    @Transactional
     public int removeBook(int id) {
         return bookMapper.deleteBookById(id);
     }
