@@ -4,6 +4,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"dev.park.e.service", "dev.park.e.dao"})
+@ComponentScan(basePackages = {"dev.park.e.service", "dev.park.e.mapper"})
 public class ApplicationConfig {
 }
