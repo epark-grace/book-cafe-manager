@@ -17,4 +17,8 @@
         DELETE FROM book WHERE id = #{id}
     </delete>
 
+    <select id="selectBookById" resultType="dev.park.e.dto.Book">
+        SELECT * FROM book WHERE id = #{id}
+    </select>
+
 </mapper>

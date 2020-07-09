@@ -10,4 +10,5 @@ public interface BookMapper {
     int selectBookCount();
     int insertBook(List<Book> book);
     int deleteBookById(int id);
+    Book selectBookById(int id);
 }
