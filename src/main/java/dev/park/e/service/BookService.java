@@ -1,8 +1,8 @@
 package dev.park.e.service;
 
-import dev.park.e.dao.BookDao;
 import dev.park.e.dto.Book;
 import dev.park.e.dto.Pagination;
+import dev.park.e.mapper.BookMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,23 +11,23 @@ import java.util.List;
 @Service
 public class BookService {
 
-    BookDao bookDao;
+    BookMapper bookMapper;
 
-    public BookService(BookDao bookDao) {
-        this.bookDao = bookDao;
+    public BookService(BookMapper bookMapper) {
+        this.bookMapper = bookMapper;
     }
 
     public Pagination getPagination(int currentPage) {
-        return new Pagination(bookDao.selectBookCount(), currentPage);
+        return new Pagination(bookMapper.selectBookCount(), currentPage);
     }
 
     @Transactional
-    public int addBooks(List<Book> books) {
-        return bookDao.insertBook(books);
+    public List<Book> addBooks(List<Book> books) {
+        bookMapper.insertBook(books);
+        return books;
     }
 
-
     public int removeBook(int id) {
-        return bookDao.deleteBookById(id);
+        return bookMapper.deleteBookById(id);
     }
 }
