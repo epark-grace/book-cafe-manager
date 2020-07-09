@@ -2,8 +2,8 @@ package dev.park.e.dto;
 
 public class Pagination {
 
-    private final int ROW_LIMIT = 10;
-    private final int PAGE_LIMIT = 10;
+    public static final int ROW_LIMIT = 10;
+    public static final int PAGE_LIMIT = 10;
     private int bookCount;
     private int pageCount;
     private int currentPage;
