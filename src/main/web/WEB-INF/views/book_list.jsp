@@ -12,6 +12,7 @@
 </select>
 <input type="text" placeholder="검색어를 입력하세요">
 <button>검색</button>
+<button>도서 등록</button>
 <button>책장번호 일괄변경</button>
 <table>
   <thead>
