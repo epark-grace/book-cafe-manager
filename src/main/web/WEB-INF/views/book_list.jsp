@@ -31,6 +31,21 @@
     </tr>
   </thead>
   <tbody>
+    <c:forEach var="book" items="${bookList}">
+      <tr>
+        <td></td>
+        <td>${book.title}</td>
+        <td>${book.categoryId}</td>
+        <td>${book.author}</td>
+        <td>${book.publisher}</td>
+        <td>${book.volume}</td>
+        <td>${book.shelfName}</td>
+        <td>${book.rowNumber}</td>
+        <td>${book.finished}</td>
+        <td>${book.forAdult}</td>
+        <td></td>
+      </tr>
+    </c:forEach>
   </tbody>
 </table>
 
