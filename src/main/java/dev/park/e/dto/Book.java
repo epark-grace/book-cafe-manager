@@ -11,8 +11,8 @@ public class Book {
     private Integer volume;
     private String shelfName;
     private short rowNumber;
-    private boolean isFinished;
-    private boolean isForAdult;
+    private boolean finished;
+    private boolean forAdult;
     private Date registrationDate;
     private Date modificationDate;
 
@@ -81,19 +81,19 @@ public class Book {
     }
 
     public boolean isFinished() {
-        return isFinished;
+        return finished;
     }
 
     public void setFinished(boolean finished) {
-        isFinished = finished;
+        this.finished = finished;
     }
 
     public boolean isForAdult() {
-        return isForAdult;
+        return forAdult;
     }
 
     public void setForAdult(boolean forAdult) {
-        isForAdult = forAdult;
+        this.forAdult = forAdult;
     }
 
     public Date getRegistrationDate() {
