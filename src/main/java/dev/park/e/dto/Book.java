@@ -5,6 +5,7 @@ import java.util.Date;
 public class Book {
     private Integer id;
     private Integer categoryId;
+    private String categoryName;
     private String title;
     private String author;
     private String publisher;
@@ -30,6 +31,14 @@ public class Book {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getTitle() {
