@@ -45,7 +45,7 @@ public class BookService {
         return bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT);
     }
 
-    public List<Book> setCategoryName(List<Book> books, List<Category> categories) {
+    private List<Book> setCategoryName(List<Book> books, List<Category> categories) {
         for (Book book : books) {
             if (book.getCategoryId() == null) {
                 book.setCategoryName("미분류");
