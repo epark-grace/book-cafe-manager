@@ -45,7 +45,8 @@ public class BookService {
     @Transactional(readOnly = true)
     public List<Book> getBookList(int currentPage) {
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
-        return bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT);
+        List<Category> categories = categoryMapper.selectCategoryList();
+        return setCategoryName(bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT), categories);
     }
 
     private List<Book> setCategoryName(List<Book> books, List<Category> categories) {
