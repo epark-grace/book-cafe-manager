@@ -35,7 +35,7 @@
       <tr>
         <td></td>
         <td>${book.title}</td>
-        <td>${book.categoryId}</td>
+        <td>${book.categoryName}</td>
         <td>${book.author}</td>
         <td>${book.publisher}</td>
         <td>${book.volume}</td>
