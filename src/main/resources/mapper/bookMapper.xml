@@ -7,9 +7,9 @@
     </select>
 
     <insert id="insertBook" parameterType="list" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO book (category_id, title, publisher, author, volume, shelf_name, row_number, is_finished, is_for_adult) VALUES
+        INSERT INTO book (category_id, title, publisher, author, volume, shelf_name, row_number, finished, for_adult) VALUES
         <foreach collection="list" item="book" separator=",">
-            (#{book.categoryId}, #{book.title}, #{book.publisher}, #{book.author}, #{book.volume}, #{book.shelfName}, #{book.rowNumber}, #{book.isFinished}, #{book.isForAdult})
+            (#{book.categoryId}, #{book.title}, #{book.publisher}, #{book.author}, #{book.volume}, #{book.shelfName}, #{book.rowNumber}, #{book.finished}, #{book.forAdult})
         </foreach>
     </insert>
 
@@ -22,7 +22,7 @@
     </select>
 
     <select id="selectBookList" resultType="dev.park.e.dto.Book">
-        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, is_finished, is_for_adult FROM book ORDER BY id ASC LIMIT #{rowCount}, #{rowLimit}
+        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult FROM book ORDER BY id ASC LIMIT #{rowCount}, #{rowLimit}
     </select>
 
 </mapper>
