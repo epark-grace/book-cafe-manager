@@ -1,6 +1,7 @@
 package dev.park.e.service;
 
 import dev.park.e.dto.Book;
+import dev.park.e.dto.Category;
 import dev.park.e.dto.Pagination;
 import dev.park.e.mapper.BookMapper;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,23 @@ public class BookService {
     public List<Book> getBookList(int currentPage) {
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
         return bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT);
+    }
+
+    public List<Book> setCategoryName(List<Book> books, List<Category> categories) {
+        for (Book book : books) {
+            if (book.getCategoryId() == null) {
+                book.setCategoryName("미분류");
+                continue;
+            }
+            for (Category category : categories) {
+                int id = category.getId();
+                if (book.getCategoryId() == id) {
+                    book.setCategoryName(category.getName());
+                    break;
+                }
+            }
+        }
+
+        return books;
     }
 }
