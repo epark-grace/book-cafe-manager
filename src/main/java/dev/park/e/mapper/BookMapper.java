@@ -13,4 +13,5 @@ public interface BookMapper {
     int deleteBookById(int id);
     Book selectBookById(int id);
     List<Book> selectBookList(@Param("rowCount")int rowCount, @Param("rowLimit")int rowLimit);
+    int updateBook(Book book);
 }

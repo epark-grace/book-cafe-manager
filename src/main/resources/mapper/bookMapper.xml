@@ -25,4 +25,18 @@
         SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult FROM book ORDER BY id ASC LIMIT #{rowCount}, #{rowLimit}
     </select>
 
+    <update id="updateBook" parameterType="dev.park.e.dto.Book">
+        UPDATE book
+        SET title = #{title},
+            category_id = #{categoryId},
+            author = #{author},
+            publisher = #{publisher},
+            volume = #{volume},
+            shelf_name = #{shelfName},
+            row_number = #{rowNumber},
+            finished = #{finished},
+            for_adult = #{forAdult},
+            modification_date = current_timestamp
+        WHERE id = #{id}
+    </update>
 </mapper>
