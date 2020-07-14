@@ -49,6 +49,11 @@ public class BookService {
         return setCategoryName(bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT), categories);
     }
 
+    @Transactional
+    public int updateBook(Book book) {
+        return bookMapper.updateBook(book);
+    }
+
     private List<Book> setCategoryName(List<Book> books, List<Category> categories) {
         for (Book book : books) {
             if (book.getCategoryId() == null) {
