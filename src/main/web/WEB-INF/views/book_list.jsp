@@ -41,8 +41,22 @@
         <td>${book.volume}</td>
         <td>${book.shelfName}</td>
         <td>${book.rowNumber}</td>
-        <td>${book.finished}</td>
-        <td>${book.forAdult}</td>
+        <c:choose>
+          <c:when test="${book.finished == false}">
+            <td>미완결</td>
+          </c:when>
+          <c:otherwise>
+            <td>완결</td>
+          </c:otherwise>
+        </c:choose>
+        <c:choose>
+          <c:when test="${book.finished == false}">
+            <td>전체이용가</td>
+          </c:when>
+          <c:otherwise>
+            <td>청소년이용불가</td>
+          </c:otherwise>
+        </c:choose>
         <td></td>
       </tr>
     </c:forEach>
