@@ -45,8 +45,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public List<Book> getBookList(int currentPage) {
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
-        List<Category> categories = categoryMapper.selectCategoryList();
-        return setCategoryName(bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT), categories);
+        return bookMapper.selectBookList(rowCount, Pagination.ROW_LIMIT);
     }
 
     @Transactional
@@ -54,21 +53,4 @@ public class BookService {
         return bookMapper.updateBook(book);
     }
 
-    private List<Book> setCategoryName(List<Book> books, List<Category> categories) {
-        for (Book book : books) {
-            if (book.getCategoryId() == null) {
-                book.setCategoryName("미분류");
-                continue;
-            }
-            for (Category category : categories) {
-                int id = category.getId();
-                if (book.getCategoryId() == id) {
-                    book.setCategoryName(category.getName());
-                    break;
-                }
-            }
-        }
-
-        return books;
-    }
 }
