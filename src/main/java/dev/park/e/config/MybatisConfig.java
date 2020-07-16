@@ -1,5 +1,6 @@
 package dev.park.e.config;
 
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -20,6 +21,7 @@ public class MybatisConfig {
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mapper/*Mapper.xml"));
         SqlSessionFactory sqlSessionFactory = factoryBean.getObject();
         sqlSessionFactory.getConfiguration().setMapUnderscoreToCamelCase(true);
+        org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
         return sqlSessionFactory;
     }
 }
