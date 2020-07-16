@@ -28,11 +28,6 @@ public class BookController {
         return bookService.getBook(id);
     }
 
-    @GetMapping("api/book-list/{currentPage}")
-    public List<Book> getBookList(@PathVariable(name = "currentPage") int currentPage) {
-        return bookService.getBookList(currentPage);
-    }
-
     @PutMapping("api/books/{id}")
     public int updateBook(@RequestBody Book book) {
         return bookService.updateBook(book);
