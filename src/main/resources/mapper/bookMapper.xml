@@ -30,7 +30,7 @@
     <select id="selectBookList" resultType="dev.park.e.dto.Book">
         SELECT b.id, title, category_id, c.name category_name, author, publisher, volume, shelf_name, row_number, finished, for_adult
         FROM book b
-        JOIN category c ON b.category_id = c.id
+        LEFT JOIN category c ON b.category_id = c.id
         ORDER BY id ASC
         LIMIT #{rowCount}, #{rowLimit}
     </select>
