@@ -53,4 +53,7 @@ public class BookService {
         return bookMapper.updateBook(book);
     }
 
+    private String[] getWordArray(String keyword) {
+        return keyword.split(" ");
+    }
 }
