@@ -63,7 +63,7 @@ public class BookService {
         return bookMapper.updateBook(book);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Book> searchBook(String column, String keyword, int currentPage) {
         String[] words = getWordArray(keyword);
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
