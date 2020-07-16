@@ -1,7 +1,6 @@
 package dev.park.e.service;
 
 import dev.park.e.dto.Book;
-import dev.park.e.dto.Category;
 import dev.park.e.dto.Pagination;
 import dev.park.e.mapper.BookMapper;
 import dev.park.e.mapper.CategoryMapper;
@@ -15,11 +14,9 @@ import java.util.List;
 public class BookService {
 
     BookMapper bookMapper;
-    CategoryMapper categoryMapper;
 
     public BookService(BookMapper bookMapper, CategoryMapper categoryMapper) {
         this.bookMapper = bookMapper;
-        this.categoryMapper = categoryMapper;
     }
 
     @Transactional(readOnly = true)
