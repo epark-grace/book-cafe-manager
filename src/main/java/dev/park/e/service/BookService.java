@@ -8,6 +8,7 @@ import dev.park.e.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -24,6 +25,15 @@ public class BookService {
     @Transactional(readOnly = true)
     public Pagination getPagination(int currentPage) {
         return new Pagination(bookMapper.selectBookCount(null), currentPage);
+    }
+
+    @Transactional(readOnly = true)
+    public Pagination getPagination(int currentPage, String column, String keyword) {
+        String[] words = getWordArray(keyword);
+        HashMap<String, Object> search = new HashMap<>();
+        search.put("column", column);
+        search.put("words", words);
+        return new Pagination(bookMapper.selectBookCount(search), currentPage);
     }
 
     @Transactional
