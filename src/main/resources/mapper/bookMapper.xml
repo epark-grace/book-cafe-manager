@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.park.e.mapper.BookMapper">
 
-    <select id="selectBookCount" resultType="int">
+    <select id="selectBookCount" resultType="int" parameterType="hashmap">
         SELECT COUNT(*) FROM BOOK
+        <if test="search != null">
+            WHERE
+            <foreach collection="search.words" item="word" separator="AND">
+                REPLACE(${search.column},' ','') LIKE '%${word}%'
+            </foreach>
+        </if>
     </select>
 
     <insert id="insertBook" parameterType="list" useGeneratedKeys="true" keyProperty="id">

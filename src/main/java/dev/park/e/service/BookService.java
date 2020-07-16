@@ -23,7 +23,7 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public Pagination getPagination(int currentPage) {
-        return new Pagination(bookMapper.selectBookCount(), currentPage);
+        return new Pagination(bookMapper.selectBookCount(null), currentPage);
     }
 
     @Transactional
