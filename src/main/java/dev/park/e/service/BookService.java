@@ -63,6 +63,13 @@ public class BookService {
         return bookMapper.updateBook(book);
     }
 
+    @Transactional
+    public List<Book> searchBook(String column, String keyword, int currentPage) {
+        String[] words = getWordArray(keyword);
+        int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
+        return bookMapper.selectBookListByKeyword(column, words, rowCount, Pagination.ROW_LIMIT);
+    }
+
     private String[] getWordArray(String keyword) {
         return keyword.split(" ");
     }
