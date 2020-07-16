@@ -49,4 +49,17 @@
             modification_date = current_timestamp
         WHERE id = #{id}
     </update>
+    
+    <select id="selectBookListByKeyword" resultType="dev.park.e.dto.Book">
+        SELECT b.id, title, category_id, c.name category_name, author, publisher, volume, shelf_name, row_number, finished, for_adult
+        FROM book b
+        LEFT JOIN category c
+        ON b.category_id = c.id
+        WHERE
+        <foreach collection="words" item="word" separator="AND">
+            REPLACE(${column},' ','') LIKE '%${word}%'
+        </foreach>
+        ORDER BY CHAR_LENGTH(title) ASC
+        LIMIT #{rowCount}, #{rowLimit}
+    </select>
 </mapper>

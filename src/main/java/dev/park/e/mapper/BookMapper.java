@@ -15,4 +15,5 @@ public interface BookMapper {
     Book selectBookById(int id);
     List<Book> selectBookList(@Param("rowCount")int rowCount, @Param("rowLimit")int rowLimit);
     int updateBook(Book book);
+    List<Book> selectBookListByKeyword(@Param("column") String column, @Param("words") String[] words, @Param("rowCount") int rowCount, @Param("rowLimit") int rowLimit);
 }
