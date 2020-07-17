@@ -61,7 +61,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public List<Book> searchBook(String column, String keyword, int currentPage) {
+    public List<Book> searchBook(int currentPage, String column, String keyword) {
         String[] words = getWordArray(keyword);
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
         return bookMapper.selectBookListByKeyword(column, words, rowCount, Pagination.ROW_LIMIT);
