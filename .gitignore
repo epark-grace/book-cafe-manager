@@ -50,8 +50,9 @@ out/
 src/main/resources/application.properties
 src/main/resources/log4j2.xml
 
-# Node
+# Frontend
 node_modules
+src/main/webapp/static/css/tailwind.css
 
 # Etc
 docs/
