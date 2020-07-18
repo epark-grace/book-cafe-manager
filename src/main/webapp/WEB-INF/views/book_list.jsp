@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <head>
   <title>Title</title>
-  <link rel="stylesheet" href="/static/css/book_list.css">
 </head>
 <body>
 <select id="criteria">
