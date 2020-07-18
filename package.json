@@ -1,0 +1,10 @@
+{
+  "name": "book-cafe-manager",
+  "version": "1.0.0",
+  "repository": "https://github.com/epark-grace/book-cafe-manager.git",
+  "author": "E.Park <epark.grace@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^1.5.1"
+  }
+}
