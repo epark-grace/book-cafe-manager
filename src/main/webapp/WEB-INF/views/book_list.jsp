@@ -65,7 +65,7 @@
             </c:otherwise>
           </c:choose>
           <c:choose>
-            <c:when test="${book.finished == false}">
+            <c:when test="${book.forAdult == false}">
               <td>전체이용가</td>
             </c:when>
             <c:otherwise>
