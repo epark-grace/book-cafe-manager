@@ -52,6 +52,7 @@ src/main/resources/log4j2.xml
 
 # Frontend
 node_modules
+node
 src/main/webapp/static/css/tailwind.css
 
 # Etc
