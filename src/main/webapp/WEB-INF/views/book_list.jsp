@@ -113,6 +113,61 @@
     </c:if>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+
+<script type="text/x-handlebars-template" id="edit-template">
+  <td></td>
+  <td><input type="text" value="{{title}}"></td>
+  <td>
+    <select>
+      {{#each category}}
+        <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </td>
+  <td><input type="text" value="{{author}}"></td>
+  <td><input type="text" value="{{publisher}}"></td>
+  <td><input type="text" value="{{volume}}"></td>
+  <td><input type="text" value="{{shelfName}}"></td>
+  <td><input type="text" value="{{rowNumber}}"></td>
+  <td>
+    <select>
+      {{#if finished}}
+        <option value="0">미완결</option>
+        <option value="1" selected>완결</option>
+      {{else}}
+        <option value="0" selected>미완결</option>
+        <option value="1">완결</option>
+      {{/if}}
+    </select>
+  </td>
+  <td>
+    <select>
+      {{#if forAdult}}
+        <option value="0">전체이용가</option>
+        <option value="1" selected>청소년이용불가</option>
+      {{else}}
+        <option value="0" selected>전체이용가</option>
+        <option value="1">청소년이용불가</option>
+      {{/if}}
+    </select>
+  </td>
+  <td>
+    <button class="submit">
+      <svg class="fill-current text-gray-500 w-5 h-5" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+      </svg>
+    </button>
+    <button class="cancel">
+      <svg class="fill-current text-gray-500 w-5 h-5" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      </svg>
+    </button>
+  </td>
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+        integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+        crossorigin="anonymous"></script>
 </body>
 </html>
