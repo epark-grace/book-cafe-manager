@@ -45,7 +45,7 @@
         <td>수정/삭제</td>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="book-list">
       <c:forEach var="book" items="${bookList}">
         <tr>
           <td></td>
