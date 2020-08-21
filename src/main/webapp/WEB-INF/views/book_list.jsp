@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="h-screen grid grid-cols-10 grid-rows-booklist">
-  <nav class="border row-span-10 col-span-1">
+  <nav class="border row-span-3 col-span-1">
     <ul>
       <li>도서목록</li>
       <li>신간도서</li>
