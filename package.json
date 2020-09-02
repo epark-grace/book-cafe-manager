@@ -5,6 +5,20 @@
   "author": "E.Park <epark.grace@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "tailwindcss": "^1.5.1"
+    "@babel/polyfill": "^7.11.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.5",
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.2",
+    "handlebars": "^4.7.6",
+    "handlebars-loader": "^1.7.1",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
+    "tailwindcss": "^1.7.6",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
