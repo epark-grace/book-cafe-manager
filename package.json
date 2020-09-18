@@ -5,7 +5,8 @@
   "author": "E.Park <epark.grace@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.11.5"
+    "@babel/polyfill": "^7.11.5",
+    "core-js": "2"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.5",
@@ -15,8 +16,8 @@
     "css-loader": "^4.2.2",
     "handlebars": "^4.7.6",
     "handlebars-loader": "^1.7.1",
+    "mini-css-extract-plugin": "^0.11.2",
     "postcss-loader": "^3.0.0",
-    "style-loader": "^1.2.1",
     "tailwindcss": "^1.7.6",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
