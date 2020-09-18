@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <head>
   <title>Title</title>
-  <link rel="stylesheet" href="/static/css/tailwind.css">
+  <link rel="stylesheet" href="/dist/css/tailwind.css">
 </head>
 <body>
 <div class="h-screen grid grid-cols-10 grid-rows-booklist">
