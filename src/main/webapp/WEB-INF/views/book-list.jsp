@@ -113,5 +113,7 @@
     </c:if>
   </div>
 </div>
+<script src="/dist/js/vendors.bundle.js"></script>
+<script src="/dist/js/book-list.bundle.js"></script>
 </body>
 </html>
