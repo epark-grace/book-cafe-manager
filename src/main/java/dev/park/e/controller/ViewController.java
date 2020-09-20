@@ -62,6 +62,6 @@ public class ViewController {
         model.addAttribute("bookList", bookList);
         model.addAttribute("pagination", pagination);
 
-        return "book_list";
+        return "book-list";
     }
 }
