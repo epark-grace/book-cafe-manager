@@ -1,22 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-class MiniCssExtractPluginCleanup {
-    constructor(deleteWhere) {
-        this.shouldDelete = new RegExp(deleteWhere)
-    }
-    apply(compiler) {
-        compiler.hooks.emit.tapAsync("MiniCssExtractPluginCleanup", (compilation, callback) => {
-            Object.keys(compilation.assets).forEach((asset) => {
-                if (this.shouldDelete.test(asset)) {
-                    delete compilation.assets[asset]
-                }
-            });
-            callback();
-        })
-    }
-}
-
 module.exports = {
     mode: "development",
     entry: {
@@ -74,7 +58,6 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({filename: "../css/[name].css"}),
-        new MiniCssExtractPluginCleanup(/tailwind\.bundle\.js$/)
     ]
 };
 
