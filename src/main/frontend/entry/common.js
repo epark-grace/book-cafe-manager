@@ -1,5 +1,3 @@
-import "../css/tailwind.css"
-
 const sendAjaxRequest = (method, url, data) => new Promise(resolve => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => resolve(xhr.responseText));
