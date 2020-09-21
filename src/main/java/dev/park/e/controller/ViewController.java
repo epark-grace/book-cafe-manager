@@ -3,6 +3,7 @@ package dev.park.e.controller;
 import dev.park.e.dto.Book;
 import dev.park.e.dto.Pagination;
 import dev.park.e.service.BookService;
+import dev.park.e.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ import java.util.List;
 public class ViewController {
 
     private BookService bookService;
+    private CategoryService categoryService;
 
-    public ViewController(BookService bookService) {
+    public ViewController(BookService bookService, CategoryService categoryService) {
         this.bookService = bookService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/")
@@ -59,8 +62,10 @@ public class ViewController {
             model.addAttribute("search", search.toString());
         }
 
+
         model.addAttribute("bookList", bookList);
         model.addAttribute("pagination", pagination);
+        model.addAttribute("categories", categoryService.getCategories());
 
         return "book-list";
     }
