@@ -27,10 +27,7 @@ export default class BookList {
         if (!button) return;
 
         const feature = button.dataset.feature;
-        if (feature === 'update') this.update();
-        else if (feature === 'delete') this.delete();
-        else if (feature === 'submit') this.submit();
-        else if (feature === 'cancel') this.cancel();
+        this[feature]();
     }
 
     hoverEventHandler(event) {
