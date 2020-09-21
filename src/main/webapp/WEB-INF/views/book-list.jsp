@@ -49,29 +49,53 @@
       <c:forEach var="book" items="${bookList}">
         <tr class="hover:bg-gray-300" data-id="${book.id}">
           <td></td>
-          <td>${book.title}</td>
-          <td>${book.categoryName}</td>
-          <td>${book.author}</td>
-          <td>${book.publisher}</td>
-          <td>${book.volume}</td>
-          <td>${book.shelfName}</td>
-          <td>${book.rowNumber}</td>
-          <c:choose>
-            <c:when test="${book.finished == false}">
-              <td>미완결</td>
-            </c:when>
-            <c:otherwise>
-              <td>완결</td>
-            </c:otherwise>
-          </c:choose>
-          <c:choose>
-            <c:when test="${book.forAdult == false}">
-              <td>전체이용가</td>
-            </c:when>
-            <c:otherwise>
-              <td>청소년이용불가</td>
-            </c:otherwise>
-          </c:choose>
+          <td contenteditable="true">${book.title}</td>
+          <td>
+            <select>
+              <c:forEach var="category" items="${categories}">
+                <c:choose>
+                  <c:when test="${book.categoryId != category.id}">
+                    <option value="${category.id}">${category.name}</option>
+                  </c:when>
+                  <c:when test="${book.categoryId == category.id}">
+                    <option value="${category.id}" selected>${category.name}</option>
+                  </c:when>
+                </c:choose>
+              </c:forEach>
+            </select>
+          <td contenteditable="true">${book.author}</td>
+          <td contenteditable="true">${book.publisher}</td>
+          <td contenteditable="true">${book.volume}</td>
+          <td contenteditable="true">${book.shelfName}</td>
+          <td contenteditable="true">${book.rowNumber}</td>
+          <td>
+            <select>
+              <c:choose>
+                <c:when test="${book.finished == false}">
+                    <option value="false" selected>미완결</option>
+                    <option value="true">완결</option>
+                </c:when>
+                <c:otherwise>
+                  <option value="false">미완결</option>
+                  <option value="true" selected>완결</option>
+                </c:otherwise>
+              </c:choose>
+            </select>
+          </td>
+          <td>
+            <select>
+            <c:choose>
+              <c:when test="${book.forAdult == false}">
+                <option value="false" selected>전체이용가</option>
+                <option value="true">청소년이용불가</option>
+              </c:when>
+              <c:otherwise>
+                <option value="false">전체이용가</option>
+                <option value="true" selected>청소년이용불가</option>
+              </c:otherwise>
+            </c:choose>
+            </select>
+          </td>
           <td class="invisible">
             <button data-feature="update">
               <svg class="fill-current text-gray-500 w-5 h-5" viewBox="0 0 20 20">

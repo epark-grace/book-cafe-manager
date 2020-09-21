@@ -7,6 +7,7 @@ export class Ajax {
             if (method === 'GET') {
                 xhr.send();
             } else {
+                xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(data);
             }
         });
