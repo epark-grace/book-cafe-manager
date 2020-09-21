@@ -47,7 +47,7 @@
       </thead>
       <tbody id="book-list">
       <c:forEach var="book" items="${bookList}">
-        <tr class="hover:bg-gray-300">
+        <tr class="hover:bg-gray-300" data-id="${book.id}">
           <td></td>
           <td>${book.title}</td>
           <td>${book.categoryName}</td>

@@ -1,3 +1,5 @@
+import {Ajax} from "./Commons.mjs";
+
 export default class BookList {
     constructor(element) {
         this.element = element;
@@ -18,8 +20,18 @@ export default class BookList {
 
     };
 
-    cancel() {
+    delete(tr) {
+        const title = tr.cells[1].innerText;
+        const answer = confirm(`[${title}] 도서를 삭제하시겠습니까?`);
+        if (!answer) return;
 
+        const id = tr.dataset.id;
+        Ajax.request('DELETE', `/api/books/${id}`).then((response) => {
+            if (response === '1') {
+                alert('삭제되었습니다.');
+                tr.remove();
+            }
+        });
     };
 
     clickEventHandler(event) {
@@ -27,7 +39,7 @@ export default class BookList {
         if (!button) return;
 
         const feature = button.dataset.feature;
-        this[feature]();
+        this[feature](button.closest('tr'));
     }
 
     hoverEventHandler(event) {
