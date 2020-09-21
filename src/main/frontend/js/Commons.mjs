@@ -1,5 +1,5 @@
 export class Ajax {
-    request(method, url, data) {
+    static request(method, url, data) {
         return new Promise(resolve => {
             const xhr = new XMLHttpRequest();
             xhr.addEventListener('load', () => resolve(xhr.responseText));
