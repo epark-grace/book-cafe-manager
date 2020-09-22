@@ -59,11 +59,11 @@ export default class BookList {
         const tr = event.target.closest('tr');
         if (!tr) return;
 
-        const td = tr.lastElementChild;
-        if (td.classList.contains('invisible')) {
-            td.classList.replace('invisible', 'visible');
+        const div = tr.lastElementChild.firstElementChild;
+        if (div.classList.contains('invisible')) {
+            div.classList.replace('invisible', 'visible');
         } else {
-            td.classList.replace('visible', 'invisible');
+            div.classList.replace('visible', 'invisible');
         }
     }
 }
