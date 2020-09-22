@@ -42,12 +42,12 @@
         <td>칸번호</td>
         <td>완결여부</td>
         <td>연령제한</td>
-        <td>수정/삭제</td>
+        <td></td>
       </tr>
       </thead>
       <tbody id="book-list">
       <c:forEach var="book" items="${bookList}">
-        <tr class="hover:bg-gray-300" data-id="${book.id}">
+        <tr class="hover:text-blue-900" data-id="${book.id}">
           <td></td>
           <td contenteditable="true">${book.title}</td>
           <td>
