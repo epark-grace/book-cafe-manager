@@ -72,8 +72,8 @@
             <select>
               <c:choose>
                 <c:when test="${book.finished == false}">
-                    <option value="false" selected>미완결</option>
-                    <option value="true">완결</option>
+                  <option value="false" selected>미완결</option>
+                  <option value="true">완결</option>
                 </c:when>
                 <c:otherwise>
                   <option value="false">미완결</option>
@@ -84,16 +84,16 @@
           </td>
           <td>
             <select>
-            <c:choose>
-              <c:when test="${book.forAdult == false}">
-                <option value="false" selected>전체이용가</option>
-                <option value="true">청소년이용불가</option>
-              </c:when>
-              <c:otherwise>
-                <option value="false">전체이용가</option>
-                <option value="true" selected>청소년이용불가</option>
-              </c:otherwise>
-            </c:choose>
+              <c:choose>
+                <c:when test="${book.forAdult == false}">
+                  <option value="false" selected>전체이용가</option>
+                  <option value="true">청소년이용불가</option>
+                </c:when>
+                <c:otherwise>
+                  <option value="false">전체이용가</option>
+                  <option value="true" selected>청소년이용불가</option>
+                </c:otherwise>
+              </c:choose>
             </select>
           </td>
           <td>
