@@ -13,3 +13,15 @@ export class Ajax {
         });
     }
 }
+
+export class CssAction {
+    static toggleOpacity(element) {
+        element.classList.toggle('opacity-100');
+        element.classList.toggle('opacity-0');
+    }
+
+    static toggleVisibility(element) {
+        element.classList.toggle('invisible');
+        element.classList.toggle('visible');
+    }
+}

@@ -1,4 +1,4 @@
-import {Ajax} from "./Commons.mjs";
+import {Ajax, CssAction} from "./Commons.mjs";
 
 export default class BookList {
     constructor(element) {
@@ -31,17 +31,17 @@ export default class BookList {
             const span = tr.cells[11].firstElementChild;
             if (response === '1') {
                 span.innerText = '수정 완료';
-                span.classList.replace('opacity-100', 'opacity-0');
+                CssAction.toggleOpacity(span);
                 setTimeout(() => {
                     span.innerText = "";
-                    span.classList.replace('opacity-0', 'opacity-100');
+                    CssAction.toggleOpacity(span);
                 }, 1000, span);
             } else {
                 span.innerText = '수정할 수 없습니다.';
-                span.classList.replace('opacity-100', 'opacity-0');
+                CssAction.toggleOpacity(span);
                 setTimeout(() => {
                     span.innerText = "";
-                    span.classList.replace('opacity-0', 'opacity-100');
+                    CssAction.toggleOpacity(span);
                 }, 1000, span);
             }
         })
@@ -57,14 +57,14 @@ export default class BookList {
             const span = tr.cells[11].firstElementChild;
             if (response === '1') {
                 span.innerText = '삭제 완료';
-                span.classList.replace('opacity-100', 'opacity-0');
+                CssAction.toggleOpacity(span);
                 setTimeout(() => tr.remove(), 1000, tr);
             } else {
                 span.innerText = '삭제할 수 없습니다.';
-                span.classList.replace('opacity-100', 'opacity-0');
+                CssAction.toggleOpacity(span);
                 setTimeout(() => {
                     span.innerText = "";
-                    span.classList.replace('opacity-0', 'opacity-100');
+                    CssAction.toggleOpacity(span);
                 }, 1000, span);
             }
         });
@@ -83,10 +83,6 @@ export default class BookList {
         if (!tr) return;
 
         const div = tr.cells[10].firstElementChild;
-        if (div.classList.contains('invisible')) {
-            div.classList.replace('invisible', 'visible');
-        } else {
-            div.classList.replace('visible', 'invisible');
-        }
+        CssAction.toggleVisibility(div);
     }
 }
