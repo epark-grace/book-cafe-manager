@@ -26,10 +26,18 @@ export default class BookList {
             finished: tr.cells[8].firstElementChild.value,
             forAdult: tr.cells[9].firstElementChild.value
         };
+
         Ajax.request('PUT', `/api/books/${id}`, JSON.stringify(modifiedBookInfo)).then((response) => {
+            const span = tr.cells[11].firstElementChild;
             if (response === '1') {
-                const span = tr.cells[11].firstElementChild;
                 span.innerText = '수정 완료';
+                span.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => {
+                    span.innerText = "";
+                    span.classList.replace('opacity-0', 'opacity-100');
+                }, 1000, span);
+            } else {
+                span.innerText = '수정할 수 없습니다.';
                 span.classList.replace('opacity-100', 'opacity-0');
                 setTimeout(() => {
                     span.innerText = "";
@@ -46,11 +54,18 @@ export default class BookList {
 
         const id = tr.dataset.id;
         Ajax.request('DELETE', `/api/books/${id}`).then((response) => {
+            const span = tr.cells[11].firstElementChild;
             if (response === '1') {
-                const span = tr.cells[11].firstElementChild;
                 span.innerText = '삭제 완료';
                 span.classList.replace('opacity-100', 'opacity-0');
                 setTimeout(() => tr.remove(), 1000, tr);
+            } else {
+                span.innerText = '삭제할 수 없습니다.';
+                span.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => {
+                    span.innerText = "";
+                    span.classList.replace('opacity-0', 'opacity-100');
+                }, 1000, span);
             }
         });
     };
