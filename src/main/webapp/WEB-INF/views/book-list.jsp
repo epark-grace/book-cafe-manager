@@ -43,6 +43,7 @@
         <td>완결여부</td>
         <td>연령제한</td>
         <td></td>
+        <td></td>
       </tr>
       </thead>
       <tbody id="book-list">
@@ -111,6 +112,8 @@
                 </svg>
               </button>
             </div>
+          </td>
+          <td class="message">
           </td>
         </tr>
       </c:forEach>
