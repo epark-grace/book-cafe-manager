@@ -113,7 +113,8 @@
               </button>
             </div>
           </td>
-          <td class="message">
+          <td>
+            <span class="transition-opacity opacity-100 duration-1000"></span>
           </td>
         </tr>
       </c:forEach>

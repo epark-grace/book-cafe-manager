@@ -28,7 +28,13 @@ export default class BookList {
         };
         Ajax.request('PUT', `/api/books/${id}`, JSON.stringify(modifiedBookInfo)).then((response) => {
             if (response === '1') {
-                alert('수정되었습니다.');
+                const span = tr.cells[11].firstElementChild;
+                span.innerText = '수정 완료';
+                span.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => {
+                    span.innerText = "";
+                    span.classList.replace('opacity-0', 'opacity-100');
+                }, 1000, span);
             }
         })
     };
@@ -41,8 +47,10 @@ export default class BookList {
         const id = tr.dataset.id;
         Ajax.request('DELETE', `/api/books/${id}`).then((response) => {
             if (response === '1') {
-                alert('삭제되었습니다.');
-                tr.remove();
+                const span = tr.cells[11].firstElementChild;
+                span.innerText = '삭제 완료';
+                span.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => tr.remove(), 1000, tr);
             }
         });
     };
