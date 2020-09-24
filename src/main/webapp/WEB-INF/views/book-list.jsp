@@ -114,7 +114,7 @@
             </div>
           </td>
           <td>
-            <span class="transition-opacity opacity-100 duration-1000"></span>
+            <span></span>
           </td>
         </tr>
       </c:forEach>

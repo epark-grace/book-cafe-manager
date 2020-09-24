@@ -25,3 +25,16 @@ export class CssAction {
         element.classList.toggle('visible');
     }
 }
+
+export class Message {
+    static fadeOutMessage(message, wrapper) {
+        wrapper.textContent = message;
+        wrapper.className = 'transition-opacity opacity-100 duration-1000';
+        CssAction.toggleOpacity(wrapper);
+
+        setTimeout(() => {
+            wrapper.textContent = null;
+            CssAction.toggleOpacity(wrapper);
+        }, 1000, wrapper);
+    }
+}

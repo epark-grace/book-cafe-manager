@@ -1,4 +1,4 @@
-import {Ajax, CssAction} from "./Commons.mjs";
+import {Ajax, CssAction, Message} from "./Commons.mjs";
 
 export default class BookList {
     constructor(element) {
@@ -28,21 +28,11 @@ export default class BookList {
         };
 
         Ajax.request('PUT', `/api/books/${id}`, JSON.stringify(modifiedBookInfo)).then((response) => {
-            const span = tr.cells[11].firstElementChild;
+            const messageWrapper = tr.cells[11].firstElementChild;
             if (response === '1') {
-                span.innerText = '수정 완료';
-                CssAction.toggleOpacity(span);
-                setTimeout(() => {
-                    span.innerText = "";
-                    CssAction.toggleOpacity(span);
-                }, 1000, span);
+                Message.fadeOutMessage('수정되었습니다.', messageWrapper);
             } else {
-                span.innerText = '수정할 수 없습니다.';
-                CssAction.toggleOpacity(span);
-                setTimeout(() => {
-                    span.innerText = "";
-                    CssAction.toggleOpacity(span);
-                }, 1000, span);
+                Message.fadeOutMessage('수정할 수 없습니다.', messageWrapper);
             }
         })
     };
@@ -54,18 +44,12 @@ export default class BookList {
 
         const id = tr.dataset.id;
         Ajax.request('DELETE', `/api/books/${id}`).then((response) => {
-            const span = tr.cells[11].firstElementChild;
+            const messageWrapper = tr.cells[11].firstElementChild;
             if (response === '1') {
-                span.innerText = '삭제 완료';
-                CssAction.toggleOpacity(span);
+                Message.fadeOutMessage('삭제되었습니다.', messageWrapper);
                 setTimeout(() => tr.remove(), 1000, tr);
             } else {
-                span.innerText = '삭제할 수 없습니다.';
-                CssAction.toggleOpacity(span);
-                setTimeout(() => {
-                    span.innerText = "";
-                    CssAction.toggleOpacity(span);
-                }, 1000, span);
+                Message.fadeOutMessage('삭제할 수 없습니다.', messageWrapper);
             }
         });
     };
