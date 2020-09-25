@@ -8,6 +8,17 @@ export default class BookList {
         this.element.addEventListener('mouseout', this.hoverEventHandler);
     }
 
+    reset(tr) {
+        const title = tr.cells[1].textContent;
+        const id = tr.dataset.id;
+        const answer = confirm(`[${title}] 입력된 정보를 되돌립니다.`);
+        if (!answer) return;
+
+        Ajax.request('GET', `/api/books/${id}`).then((response) => {
+            this.renderBookInfo(tr, JSON.parse(response));
+        });
+    }
+
     update(tr) {
         const title = tr.cells[1].innerText;
         const answer = confirm(`[${title}] 도서를 수정하시겠습니까?`);
