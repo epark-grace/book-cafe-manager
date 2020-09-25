@@ -28,8 +28,9 @@ export default class BookList {
         };
 
         Ajax.request('PUT', `/api/books/${id}`, JSON.stringify(modifiedBookInfo)).then((response) => {
+            response = JSON.parse(response);
             const messageWrapper = tr.cells[11].firstElementChild;
-            if (response === '1') {
+            if (response.count === 1) {
                 Message.fadeOutMessage('수정되었습니다.', messageWrapper);
             } else {
                 Message.fadeOutMessage('수정할 수 없습니다.', messageWrapper);

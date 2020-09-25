@@ -4,6 +4,7 @@ import dev.park.e.dto.Book;
 import dev.park.e.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,10 @@ public class BookController {
     }
 
     @PutMapping("api/books/{id}")
-    public int updateBook(@RequestBody Book book) {
-        return bookService.updateBook(book);
+    public HashMap<String, Object> updateBook(@RequestBody Book book) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("count", bookService.updateBook(book));
+        resultMap.put("book", bookService.getBook(book.getId()));
+        return resultMap;
     }
 }
