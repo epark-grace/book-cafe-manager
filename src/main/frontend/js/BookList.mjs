@@ -41,6 +41,7 @@ export default class BookList {
 
         Ajax.request('PUT', `/api/books/${id}`, JSON.stringify(modifiedBookInfo)).then((response) => {
             response = JSON.parse(response);
+            this.renderBookInfo(tr, response.book);
             const messageWrapper = tr.cells[11].firstElementChild;
             if (response.count === 1) {
                 Message.fadeOutMessage('수정되었습니다.', messageWrapper);
