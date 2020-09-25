@@ -55,6 +55,18 @@ export default class BookList {
         });
     };
 
+    renderBookInfo(tr, bookInfo) {
+        tr.cells[1].textContent = bookInfo.title;
+        tr.cells[2].firstElementChild.value = bookInfo.categoryId;
+        tr.cells[3].textContent = bookInfo.author;
+        tr.cells[4].textContent = bookInfo.publisher;
+        tr.cells[5].textContent = bookInfo.volume;
+        tr.cells[6].textContent = bookInfo.shelfName;
+        tr.cells[7].textContent = bookInfo.rowNumber;
+        tr.cells[8].firstElementChild.value = bookInfo.finished;
+        tr.cells[9].firstElementChild.value = bookInfo.forAdult;
+    }
+
     clickEventHandler(event) {
         const button = event.target.closest('button');
         if (!button) return;
