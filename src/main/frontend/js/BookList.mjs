@@ -20,20 +20,21 @@ export default class BookList {
     }
 
     update(tr) {
-        const title = tr.cells[1].innerText;
+        const title = tr.cells[1].textContent;
+        const id = tr.dataset.id;
         const answer = confirm(`[${title}] 도서를 수정하시겠습니까?`);
+
         if (!answer) return;
 
-        const id = tr.dataset.id;
         const modifiedBookInfo = {
             id: id,
-            title: tr.cells[1].innerText,
+            title: title,
             categoryId: tr.cells[2].firstElementChild.value,
-            author: tr.cells[3].innerText,
-            publisher: tr.cells[4].innerText,
-            volume: tr.cells[5].innerText,
-            shelfName: tr.cells[6].innerText,
-            rowNumber: tr.cells[7].innerText,
+            author: tr.cells[3].textContent,
+            publisher: tr.cells[4].textContent,
+            volume: tr.cells[5].textContent,
+            shelfName: tr.cells[6].textContent,
+            rowNumber: tr.cells[7].textContent,
             finished: tr.cells[8].firstElementChild.value,
             forAdult: tr.cells[9].firstElementChild.value
         };
@@ -50,7 +51,7 @@ export default class BookList {
     };
 
     delete(tr) {
-        const title = tr.cells[1].innerText;
+        const title = tr.cells[1].textContent;
         const answer = confirm(`[${title}] 도서를 삭제하시겠습니까?`);
         if (!answer) return;
 
