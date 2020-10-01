@@ -31,9 +31,8 @@
     </select>
 
     <select id="selectBookList" resultType="dev.park.e.dto.Book">
-        SELECT b.id, title, category_id, c.name category_name, author, publisher, volume, shelf_name, row_number, finished, for_adult
-        FROM book b
-        LEFT JOIN category c ON b.category_id = c.id
+        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult
+        FROM book
         ORDER BY id ASC
         LIMIT #{rowCount}, #{rowLimit}
     </select>
@@ -54,10 +53,8 @@
     </update>
     
     <select id="selectBookListByKeyword" resultType="dev.park.e.dto.Book">
-        SELECT b.id, title, category_id, c.name category_name, author, publisher, volume, shelf_name, row_number, finished, for_adult
-        FROM book b
-        LEFT JOIN category c
-        ON b.category_id = c.id
+        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult
+        FROM book
         WHERE
         <foreach collection="words" item="word" separator="AND">
             REPLACE(${column},' ','') LIKE '%${word}%'
