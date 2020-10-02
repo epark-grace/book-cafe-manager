@@ -22,7 +22,7 @@ export default class BookList {
     update(tr) {
         const title = tr.cells[1].textContent;
         const id = tr.dataset.id;
-        const answer = confirm(`[${title}] 도서를 수정하시겠습니까?`);
+        const answer = confirm(`[${title}] 도서를 수정합니다.`);
 
         if (!answer) return;
 
@@ -53,7 +53,7 @@ export default class BookList {
 
     delete(tr) {
         const title = tr.cells[1].textContent;
-        const answer = confirm(`[${title}] 도서를 삭제하시겠습니까?`);
+        const answer = confirm(`[${title}] 도서를 삭제합니다.`);
         if (!answer) return;
 
         const id = tr.dataset.id;
