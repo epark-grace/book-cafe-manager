@@ -70,7 +70,11 @@ export default class BookList {
 
     renderBookInfo(tr, bookInfo) {
         tr.cells[1].textContent = bookInfo.title;
-        tr.cells[2].firstElementChild.value = bookInfo.categoryId;
+        if (bookInfo.categoryId != null) {
+            tr.cells[2].firstElementChild.value = bookInfo.categoryId;
+        } else {
+            tr.cells[2].firstElementChild.value = '';
+        }
         tr.cells[3].textContent = bookInfo.author;
         tr.cells[4].textContent = bookInfo.publisher;
         tr.cells[5].textContent = bookInfo.volume;

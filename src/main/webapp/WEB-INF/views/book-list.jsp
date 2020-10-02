@@ -53,6 +53,14 @@
           <td contenteditable="true">${book.title}</td>
           <td>
             <select>
+              <c:choose>
+                <c:when test="${book.categoryId == null}">
+                  <option value="" selected>미분류</option>
+                </c:when>
+                <c:otherwise>
+                  <option value="">미분류</option>
+                </c:otherwise>
+              </c:choose>
               <c:forEach var="category" items="${categories}">
                 <c:choose>
                   <c:when test="${book.categoryId != category.id}">
