@@ -39,29 +39,16 @@ public class ViewController {
                            @RequestParam HashMap<String, String> params,
                            Model model) {
 
-        List<Book> bookList;
-        Pagination pagination;
+        List<Book> bookList = bookService.getBookList(currentPage, params);
+        Pagination pagination = bookService.getPagination(currentPage, params);
 
-        if (params.isEmpty()) {
-            bookList = bookService.getBookList(currentPage);
-            pagination = bookService.getPagination(currentPage);
-        } else {
-            String column = "title";
-            if (params.get("author") != null) {
-                column = "author";
-            }
-
-            String keyword = params.get(column);
-
-            bookList = bookService.searchBook(currentPage, column, keyword);
-            pagination = bookService.getPagination(currentPage, column, keyword);
-
+        if (!params.isEmpty()) {
             StringBuilder search = new StringBuilder("?");
-            search.append(column).append("=").append(keyword);
-
+            for (String key : params.keySet()) {
+                search.append(key).append("=").append(params.get(key));
+            }
             model.addAttribute("search", search.toString());
         }
-
 
         model.addAttribute("bookList", bookList);
         model.addAttribute("pagination", pagination);

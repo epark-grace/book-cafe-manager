@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.park.e.mapper.BookMapper">
 
-    <select id="selectBookCount" resultType="int" parameterType="hashmap">
+    <select id="selectBookCount" resultType="int">
         SELECT COUNT(*) FROM BOOK
         <if test="search != null">
             WHERE
-            <foreach collection="search.words" item="word" separator="AND">
+            <foreach collection="search.column" item="word" separator="AND">
                 REPLACE(${search.column},' ','') LIKE '%${word}%'
             </foreach>
         </if>
@@ -33,7 +33,18 @@
     <select id="selectBookList" resultType="dev.park.e.dto.Book">
         SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult
         FROM book
-        ORDER BY id ASC
+        <choose>
+            <when test="search != null">
+                WHERE
+                <foreach collection="search.column" item="word" separator="AND">
+                    REPLACE(${search.column}, ' ', '') LIKE '%{word}%'
+                </foreach>
+                ORDER BY CHAR_LENGTH(${search.column}) ASC
+            </when>
+            <otherwise>
+                ORDER BY id ASC
+            </otherwise>
+        </choose>
         LIMIT #{rowCount}, #{rowLimit}
     </select>
 
@@ -51,15 +62,4 @@
             modification_date = current_timestamp
         WHERE id = #{id}
     </update>
-    
-    <select id="selectBookListByKeyword" resultType="dev.park.e.dto.Book">
-        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult
-        FROM book
-        WHERE
-        <foreach collection="words" item="word" separator="AND">
-            REPLACE(${column},' ','') LIKE '%${word}%'
-        </foreach>
-        ORDER BY CHAR_LENGTH(title) ASC
-        LIMIT #{rowCount}, #{rowLimit}
-    </select>
 </mapper>
