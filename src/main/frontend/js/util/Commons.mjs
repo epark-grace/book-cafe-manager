@@ -1,16 +1,21 @@
 export class Ajax {
-    static request(method, url, data) {
-        return new Promise(resolve => {
-            const xhr = new XMLHttpRequest();
-            xhr.addEventListener('load', () => resolve(xhr.responseText));
-            xhr.open(method, url);
-            if (method === 'GET') {
-                xhr.send();
-            } else {
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(data);
-            }
-        });
+    static async request(url, method, data) {
+        let response;
+
+        if (!method) {
+            response = await fetch(url);
+        } else {
+            const init = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            response = await fetch(url, init);
+        }
+
+        return await response.json();
     }
 }
 
