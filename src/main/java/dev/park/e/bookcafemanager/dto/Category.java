@@ -1,4 +1,4 @@
-package dev.park.e.dto;
+package dev.park.e.bookcafemanager.dto;
 
 public class Category {
     private Integer id;

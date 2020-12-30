@@ -1,8 +1,8 @@
-package dev.park.e.service;
+package dev.park.e.bookcafemanager.service;
 
-import dev.park.e.dto.Book;
-import dev.park.e.dto.Pagination;
-import dev.park.e.mapper.BookMapper;
+import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.dto.Pagination;
+import dev.park.e.bookcafemanager.mapper.BookMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

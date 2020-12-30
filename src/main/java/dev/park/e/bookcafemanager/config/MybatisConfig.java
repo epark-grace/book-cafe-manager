@@ -1,6 +1,5 @@
-package dev.park.e.config;
+package dev.park.e.bookcafemanager.config;
 
-import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -11,7 +10,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan("dev.park.e.mapper")
+@MapperScan("dev.park.e.bookcafemanager.mapper")
 public class MybatisConfig {
 
     @Bean

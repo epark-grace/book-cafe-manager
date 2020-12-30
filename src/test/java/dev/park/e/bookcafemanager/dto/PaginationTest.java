@@ -1,4 +1,4 @@
-package dev.park.e.dto;
+package dev.park.e.bookcafemanager.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

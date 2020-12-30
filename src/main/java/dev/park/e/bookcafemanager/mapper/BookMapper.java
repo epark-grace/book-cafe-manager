@@ -1,6 +1,6 @@
-package dev.park.e.mapper;
+package dev.park.e.bookcafemanager.mapper;
 
-import dev.park.e.dto.Book;
+import dev.park.e.bookcafemanager.dto.Book;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

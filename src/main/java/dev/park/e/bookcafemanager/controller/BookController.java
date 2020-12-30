@@ -1,7 +1,7 @@
-package dev.park.e.controller;
+package dev.park.e.bookcafemanager.controller;
 
-import dev.park.e.dto.Book;
-import dev.park.e.service.BookService;
+import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

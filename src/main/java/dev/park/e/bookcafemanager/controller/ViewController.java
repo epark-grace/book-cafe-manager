@@ -1,9 +1,9 @@
-package dev.park.e.controller;
+package dev.park.e.bookcafemanager.controller;
 
-import dev.park.e.dto.Book;
-import dev.park.e.dto.Pagination;
-import dev.park.e.service.BookService;
-import dev.park.e.service.CategoryService;
+import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.dto.Pagination;
+import dev.park.e.bookcafemanager.service.BookService;
+import dev.park.e.bookcafemanager.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

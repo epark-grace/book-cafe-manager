@@ -1,4 +1,4 @@
-package dev.park.e.config;
+package dev.park.e.bookcafemanager.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

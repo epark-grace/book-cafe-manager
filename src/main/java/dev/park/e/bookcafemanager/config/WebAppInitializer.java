@@ -1,4 +1,4 @@
-package dev.park.e.config;
+package dev.park.e.bookcafemanager.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

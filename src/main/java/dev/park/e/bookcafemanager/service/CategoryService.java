@@ -1,7 +1,7 @@
-package dev.park.e.service;
+package dev.park.e.bookcafemanager.service;
 
-import dev.park.e.dto.Category;
-import dev.park.e.mapper.CategoryMapper;
+import dev.park.e.bookcafemanager.dto.Category;
+import dev.park.e.bookcafemanager.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
