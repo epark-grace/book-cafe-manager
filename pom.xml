@@ -11,10 +11,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <frontend-maven-plugin.nodeVersion>v12.18.2</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.yarnVersion>v1.22.4</frontend-maven-plugin.yarnVersion>
-        <tailwind.build.source>src/main/frontend/tailwind.css</tailwind.build.source>
-        <tailwind.build.target>src/main/webapp/static/css/tailwind.css</tailwind.build.target>
         <junit.version>5.6.1</junit.version>
         <log4j.version>2.13.3</log4j.version>
         <spring.version>5.2.4.RELEASE</spring.version>
@@ -30,41 +26,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.10.0</version>
-                <executions>
-                    <execution>
-                        <id>install-node-and-yarn</id>
-                        <goals>
-                            <goal>install-node-and-yarn</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
-                            <yarnVersion>${frontend-maven-plugin.yarnVersion}</yarnVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>yarn-install</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>yarn-tailwindcss-build</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>tailwindcss build ${tailwind.build.source} -o ${tailwind.build.target}</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
