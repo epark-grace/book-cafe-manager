@@ -1,4 +1,4 @@
-import {Ajax} from "../util/Commons";
+import {Ajax} from "../util/Commons.mjs";
 
 export default class BookListModel {
     async resetBookInfo(id) {

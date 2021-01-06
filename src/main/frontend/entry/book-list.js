@@ -1,5 +1,5 @@
-import BookListController from "../js/controller/BookListController";
-import BookListModel from "../js/model/BookListModel";
-import BookListView from "../js/view/BookListView";
+import BookListController from "../js/controller/BookListController.mjs";
+import BookListModel from "../js/model/BookListModel.mjs";
+import BookListView from "../js/view/BookListView.mjs";
 
-new BookListController(new BookListModel(), new BookListView(document.getElementById('book-LIST')));
+new BookListController(new BookListModel(), new BookListView(document.getElementById('book-list')));

@@ -4,17 +4,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     mode: "development",
     entry: {
-        "book-list": path.resolve(__dirname, "src/main/frontend/entry/book-list.js")
+        "book-list": './src/main/frontend/entry/book-list.js'
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, "src/main/webapp/dist/js")
+        path: path.resolve(__dirname, "src/main/resources/static/js")
     },
     optimization: {
         splitChunks: {
             cacheGroups: {
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
+                defaultVendors: {
                     name: "vendors",
                     chunks: "all",
                     enforce: true
@@ -28,11 +27,14 @@ module.exports = {
             }
         }
     },
+    plugins: [
+        new MiniCssExtractPlugin({filename: "../css/[name].css"})
+    ],
     module: {
         rules: [
             {
                 test: /m?\.js$/,
-                exclude: /node_modules/,
+                exclude: /[\\/]node_modules[\\/]/,
                 use: "babel-loader"
             },
             {
@@ -47,16 +49,8 @@ module.exports = {
                     },
                     "postcss-loader"
                 ]
-            },
-            {
-                test: /\.handlebars$/,
-                exclude: /node_modules/,
-                use: "handlebars-loader"
             }
         ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({filename: "../css/[name].css"}),
-    ]
+    }
 };
 

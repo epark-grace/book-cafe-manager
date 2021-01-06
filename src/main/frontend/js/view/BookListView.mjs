@@ -1,4 +1,4 @@
-import {CssAction} from "../util/Commons";
+import {CssAction} from "../util/Commons.mjs";
 
 export default class BookListView {
     constructor(bookList) {
