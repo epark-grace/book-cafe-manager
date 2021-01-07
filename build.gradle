@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'dev.park.e'
+version = '1.0.0'
+description = 'bookcafemanager'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'javax.servlet:jstl:1.2'
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.springframework:spring-webmvc:5.2.4.RELEASE'
+    implementation 'org.springframework:spring-jdbc:5.2.4.RELEASE'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.0'
+    implementation 'org.mybatis:mybatis:3.5.4'
+    implementation 'org.mybatis:mybatis-spring:2.0.4'
+    implementation 'com.zaxxer:HikariCP:3.4.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.6.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.3.3'
+    testImplementation 'org.springframework:spring-test:5.2.4.RELEASE'
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+}
