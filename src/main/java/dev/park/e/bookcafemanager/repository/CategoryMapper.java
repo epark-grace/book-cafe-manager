@@ -1,8 +1,7 @@
-package dev.park.e.bookcafemanager.mapper;
+package dev.park.e.bookcafemanager.repository;
 
 import dev.park.e.bookcafemanager.dto.Category;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
