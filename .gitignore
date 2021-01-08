@@ -51,7 +51,8 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ### Resources
-src/main/resources/log4j2.xml
+data*.sql
+schema*.sql
 
 ### Frontend
 node_modules
