@@ -7,16 +7,16 @@ public class Pagination {
 
     public static final int ROW_LIMIT = 10;
     public static final int PAGE_LIMIT = 10;
-    private int bookCount;
-    private int pageCount;
+    private final long bookCount;
+    private final int pageCount;
     private int currentPage;
-    private int firstPage;
+    private final int firstPage;
     private int lastPage;
 
-    public Pagination(int bookCount, int currentPage) {
+    public Pagination(long bookCount, int currentPage) {
         this.currentPage = currentPage;
         this.bookCount = bookCount;
-        pageCount = (bookCount - 1) / ROW_LIMIT + 1;
+        pageCount = (int) ((bookCount - 1) / ROW_LIMIT + 1);
         if (this.currentPage > pageCount) {
             this.currentPage = pageCount;
         }
