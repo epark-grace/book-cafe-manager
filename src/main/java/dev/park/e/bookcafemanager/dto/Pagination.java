@@ -1,5 +1,8 @@
 package dev.park.e.bookcafemanager.dto;
 
+import lombok.Getter;
+
+@Getter
 public class Pagination {
 
     public static final int ROW_LIMIT = 10;
@@ -22,22 +25,6 @@ public class Pagination {
         if (lastPage > pageCount) {
             lastPage = pageCount;
         }
-    }
-
-    public int getPageCount() {
-        return pageCount;
-    }
-
-    public int getFirstPage() {
-        return firstPage;
-    }
-
-    public int getLastPage() {
-        return lastPage;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
     }
 
     @Override
