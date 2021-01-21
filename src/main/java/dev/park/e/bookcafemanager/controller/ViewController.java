@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ViewController {
@@ -36,7 +37,7 @@ public class ViewController {
 
     @GetMapping("/book-list/{currentPage}")
     public String bookList(@PathVariable(name = "currentPage") int currentPage,
-                           @RequestParam HashMap<String, String> params,
+                           @RequestParam() Map<String, String> params,
                            Model model) {
 
         List<Book> bookList = bookService.getBookList(currentPage, params);

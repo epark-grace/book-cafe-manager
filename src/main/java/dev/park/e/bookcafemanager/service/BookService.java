@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public Pagination getPagination(int currentPage, HashMap<String, String> search) {
+    public Pagination getPagination(int currentPage, Map<String, String> search) {
         Map<String, String[]> searchParams = getSearchParameterOrNull(search);
         return new Pagination(bookMapper.selectBookCount(searchParams), currentPage);
     }
@@ -44,7 +43,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public List<Book> getBookList(int currentPage, HashMap<String, String> search) {
+    public List<Book> getBookList(int currentPage, Map<String, String> search) {
         Map<String, String[]> searchParams = getSearchParameterOrNull(search);
         int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
         return bookMapper.selectBookList(searchParams, rowCount, Pagination.ROW_LIMIT);
@@ -59,7 +58,7 @@ public class BookService {
         return keyword.split(" ");
     }
 
-    private Map<String, String[]> getSearchParameterOrNull(HashMap<String, String> search) {
+    private Map<String, String[]> getSearchParameterOrNull(Map<String, String> search) {
         Map<String, String[]> searchParams = null;
         if (!search.isEmpty()) {
             String column = search.keySet().iterator().next();
