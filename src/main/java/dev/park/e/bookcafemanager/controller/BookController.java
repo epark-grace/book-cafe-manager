@@ -34,10 +34,10 @@ public class BookController {
     public Book getBook(@PathVariable(name = "id") int id) { return bookService.getBook(id); }
 
     @PutMapping("api/books/{id}")
-    public Map<String, Object> updateBook(@RequestBody Book book) {
+    public Map<String, Object> updateBook(@RequestBody Book book, @PathVariable(name = "id") int id) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("count", bookService.updateBook(book));
-        resultMap.put("bookInfo", bookService.getBook(book.getId()));
+        resultMap.put("bookInfo", bookService.getBook(id));
         return resultMap;
     }
 }
