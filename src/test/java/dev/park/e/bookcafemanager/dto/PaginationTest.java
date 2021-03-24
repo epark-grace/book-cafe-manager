@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PaginationTest {
+class PaginationTest {
 
     @DisplayName("일반적인 경우의 총 페이지 수 계산")
     @ParameterizedTest(name = "총 데이터 수: {0}, 총 페이지 수: {1}")
