@@ -1,29 +1,28 @@
 package dev.park.e.bookcafemanager.controller;
 
-import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.dto.BookDto;
+import dev.park.e.bookcafemanager.dto.CategoryDto;
 import dev.park.e.bookcafemanager.dto.Pagination;
+import dev.park.e.bookcafemanager.dto.Search;
 import dev.park.e.bookcafemanager.service.BookService;
 import dev.park.e.bookcafemanager.service.CategoryService;
+import dev.park.e.bookcafemanager.service.PaginationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@RequiredArgsConstructor
 @Controller
 public class ViewController {
 
-    private BookService bookService;
-    private CategoryService categoryService;
-
-    public ViewController(BookService bookService, CategoryService categoryService) {
-        this.bookService = bookService;
-        this.categoryService = categoryService;
-    }
+    private final BookService bookService;
+    private final CategoryService categoryService;
+    private final PaginationService paginationService;
 
     @GetMapping("/")
     public String main() {
@@ -37,23 +36,23 @@ public class ViewController {
 
     @GetMapping("/book-list/{currentPage}")
     public String bookList(@PathVariable(name = "currentPage") int currentPage,
-                           @RequestParam() Map<String, String> params,
+                           @ModelAttribute("search") Search search,
                            Model model) {
 
-        List<Book> bookList = bookService.getBookList(currentPage, params);
-        Pagination pagination = bookService.getPagination(currentPage, params);
+        List<BookDto.Response> bookList;
 
-        if (!params.isEmpty()) {
-            StringBuilder search = new StringBuilder("?");
-            for (String key : params.keySet()) {
-                search.append(key).append("=").append(params.get(key));
-            }
-            model.addAttribute("search", search.toString());
+        if (search.getCriteria() != null) {
+            bookList = bookService.getBooksBySearch(currentPage, search);
+        } else {
+            bookList = BookDto.Response.listOf(bookService.getBooks(currentPage));
         }
 
-        model.addAttribute("bookList", bookList);
+        Pagination pagination = paginationService.getPagination(currentPage, search);
+        List<CategoryDto.Response> categories = CategoryDto.Response.listOf(categoryService.getCategories());
+
         model.addAttribute("pagination", pagination);
-        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("categories", categories);
 
         return "book-list";
     }

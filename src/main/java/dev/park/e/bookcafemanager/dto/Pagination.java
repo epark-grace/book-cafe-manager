@@ -39,4 +39,8 @@ public class Pagination {
                 ", lastPage=" + lastPage +
                 '}';
     }
+
+    public static long getRowCount(int currentPage) {
+        return ((long) currentPage - 1) * Pagination.ROW_LIMIT;
+    }
 }

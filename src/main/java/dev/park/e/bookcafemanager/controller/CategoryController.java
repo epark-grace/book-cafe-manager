@@ -1,6 +1,6 @@
 package dev.park.e.bookcafemanager.controller;
 
-import dev.park.e.bookcafemanager.dto.Category;
+import dev.park.e.bookcafemanager.dto.CategoryDto;
 import dev.park.e.bookcafemanager.service.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ public class CategoryController {
     }
 
     @GetMapping("api/categories")
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
+    public List<CategoryDto.Response> getCategories() {
+        return CategoryDto.Response.listOf(categoryService.getCategories());
     }
 }

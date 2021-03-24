@@ -27,21 +27,8 @@ export default class BookListView {
             if (!answer) return;
 
             const handler = `handle${feature[0].toUpperCase()}${feature.slice(1)}BookInfo`;
-            const count = await controller[handler](id);
-
-            if (feature === 'update') {
-                if (count === 1) {
-                    alert('수정되었습니다.');
-                } else {
-                    alert('수정할 수 없습니다.');
-                }
-            } else if (feature === 'delete') {
-                if (count === 1) {
-                    alert('삭제되었습니다.');
-                } else {
-                    alert('삭제할 수 없습니다.');
-                }
-            }
+            const message = await controller[handler](id);
+            alert(message);
         });
     }
 
@@ -61,7 +48,6 @@ export default class BookListView {
     getModifiedBookInfo(id) {
         const tr = document.querySelector(`tr[data-id="${id}"`);
         return {
-            id: id,
             title: tr.cells[1].textContent,
             categoryId: tr.cells[2].firstElementChild.value,
             author: tr.cells[3].textContent,
@@ -74,25 +60,25 @@ export default class BookListView {
         };
     }
 
-    renderBookInfoForm(bookInfo) {
-        const tr = document.querySelector(`tr[data-id="${bookInfo.id}"`);
+    renderBookInfoForm(data) {
+        const tr = document.querySelector(`tr[data-id="${data.id}"`);
 
-        if (bookInfo.title === undefined) {
+        if (data.title === undefined) {
             setTimeout(() => tr.remove(), 1000, tr);
         } else {
-            tr.cells[1].textContent = bookInfo.title;
-            if (bookInfo.categoryId != null) {
-                tr.cells[2].firstElementChild.value = bookInfo.categoryId;
+            tr.cells[1].textContent = data.title;
+            if (data.categoryId != null) {
+                tr.cells[2].firstElementChild.value = data.categoryId;
             } else {
                 tr.cells[2].firstElementChild.value = '';
             }
-            tr.cells[3].textContent = bookInfo.author;
-            tr.cells[4].textContent = bookInfo.publisher;
-            tr.cells[5].textContent = bookInfo.volume;
-            tr.cells[6].textContent = bookInfo.shelfName;
-            tr.cells[7].textContent = bookInfo.rowNumber;
-            tr.cells[8].firstElementChild.value = bookInfo.finished;
-            tr.cells[9].firstElementChild.value = bookInfo.forAdult;
+            tr.cells[3].textContent = data.author;
+            tr.cells[4].textContent = data.publisher;
+            tr.cells[5].textContent = data.volume;
+            tr.cells[6].textContent = data.shelfName;
+            tr.cells[7].textContent = data.rowNumber;
+            tr.cells[8].firstElementChild.value = data.finished;
+            tr.cells[9].firstElementChild.value = data.forAdult;
         }
     }
 }

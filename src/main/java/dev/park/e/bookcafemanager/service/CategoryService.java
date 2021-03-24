@@ -1,21 +1,25 @@
 package dev.park.e.bookcafemanager.service;
 
-import dev.park.e.bookcafemanager.dto.Category;
-import dev.park.e.bookcafemanager.repository.CategoryMapper;
+import dev.park.e.bookcafemanager.domain.Category;
+import dev.park.e.bookcafemanager.dto.CategoryDto;
+import dev.park.e.bookcafemanager.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class CategoryService {
 
-    CategoryMapper categoryMapper;
-
-    public CategoryService(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
-    }
+    final CategoryRepository categoryRepository;
 
     public List<Category> getCategories() {
-        return categoryMapper.selectCategoryList();
+        return categoryRepository.findAll();
+    }
+
+    public Category getCategory(long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("CategoryService.getCategory(" + id + "): 존재하지않는 Category ID"));
     }
 }

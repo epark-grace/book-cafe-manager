@@ -1,71 +1,60 @@
 package dev.park.e.bookcafemanager.service;
 
-import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.domain.Book;
+import dev.park.e.bookcafemanager.domain.Category;
+import dev.park.e.bookcafemanager.dto.BookDto;
 import dev.park.e.bookcafemanager.dto.Pagination;
+import dev.park.e.bookcafemanager.dto.Search;
 import dev.park.e.bookcafemanager.repository.BookMapper;
 import dev.park.e.bookcafemanager.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class BookService {
 
-    BookMapper bookMapper;
+    final CategoryService categoryService;
+    final BookMapper bookMapper;
+    final BookRepository bookRepository;
 
-    public BookService(BookMapper bookMapper) {
-        this.bookMapper = bookMapper;
-    }
-
-    @Transactional(readOnly = true)
-    public Pagination getPagination(int currentPage, Map<String, String> search) {
-        Map<String, String[]> searchParams = getSearchParameterOrNull(search);
-        return new Pagination(bookMapper.selectBookCount(searchParams), currentPage);
+    @Transactional
+    public void createBooks(List<Book> books) {
+        bookRepository.saveAll(books);
     }
 
     @Transactional
-    public List<Book> addBooks(List<Book> books) {
-        bookMapper.insertBook(books);
-        return books;
-    }
-
-    @Transactional
-    public int removeBook(int id) {
-        return bookMapper.deleteBookById(id);
+    public long deleteBookById(long id) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("BookService.deleteBookById(\" + id + \"): 존재하지않는 Book ID"));
+        bookRepository.deleteById(book.getId());
+        return id;
     }
 
     @Transactional(readOnly = true)
-    public Book getBook(int id) {
-        return bookMapper.selectBookById(id);
+    public Book getBookById(long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("BookService.getBookById(" + id + "): 존재하지않는 Book ID"));
     }
 
     @Transactional(readOnly = true)
-    public List<Book> getBookList(int currentPage, Map<String, String> search) {
-        Map<String, String[]> searchParams = getSearchParameterOrNull(search);
-        int rowCount = (currentPage - 1) * Pagination.ROW_LIMIT;
-        return bookMapper.selectBookList(searchParams, rowCount, Pagination.ROW_LIMIT);
+    public List<BookDto.Response> getBooksBySearch(int currentPage, Search search) {
+        return bookMapper.findAllBy(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT, search);
     }
+
+    @Transactional(readOnly = true)
+    public List<Book> getBooks(int currentPage) {
+        return bookRepository.findAll(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT);
+    }
+
+
 
     @Transactional
-    public int updateBook(Book book) {
-        return bookMapper.updateBook(book);
-    }
-
-    private String[] getWordArray(String keyword) {
-        return keyword.split(" ");
-    }
-
-    private Map<String, String[]> getSearchParameterOrNull(Map<String, String> search) {
-        Map<String, String[]> searchParams = null;
-        if (!search.isEmpty()) {
-            String column = search.keySet().iterator().next();
-            String[] words = getWordArray(search.get(column));
-            searchParams = Collections.singletonMap(column, words);
-        }
-
-        return searchParams;
+    public Book updateBook(long id, BookDto.Request dto) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("BookService.updateBook(" + id + "): 존재하지않는 Book ID"));
+        Category category = categoryService.getCategory(dto.getCategoryId());;
+        book.update(category, dto.getTitle(), dto.getAuthor(), dto.getPublisher(), dto.getVolume(), dto.getShelfName(), dto.getRowNumber(), dto.getFinished(), dto.getForAdult());
+        return book;
     }
 }

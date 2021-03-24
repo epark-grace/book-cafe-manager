@@ -1,43 +1,49 @@
 package dev.park.e.bookcafemanager.controller;
 
-import dev.park.e.bookcafemanager.dto.Book;
+import dev.park.e.bookcafemanager.converter.Converter;
+import dev.park.e.bookcafemanager.domain.Book;
+import dev.park.e.bookcafemanager.dto.BookDto;
+import dev.park.e.bookcafemanager.dto.HttpResponseBody;
 import dev.park.e.bookcafemanager.service.BookService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 public class BookController {
 
-    BookService bookService;
+    final BookService bookService;
+    final Converter<Book> bookConverter;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    @PostMapping(value = "api/books", produces = "application/json; charset=utf-8")
+    public ResponseEntity<HttpResponseBody> addBooks(@RequestBody List<BookDto.Request> requestDto) {
+        List<Book> requestEntities = bookConverter.toEntities(requestDto);
+        bookService.createBooks(requestEntities);
+        HttpResponseBody body = new HttpResponseBody("등록되었습니다.", requestDto.size());
+        return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
-    @PostMapping("api/books")
-    public List<Book> addBooks(@RequestBody List<Book> books) {
-        return bookService.addBooks(books);
+    @DeleteMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
+    public ResponseEntity<HttpResponseBody> deleteBook(@PathVariable(name = "id") long id) {
+        HttpResponseBody body = new HttpResponseBody("삭제되었습니다.", bookService.deleteBookById(id));
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
-    @DeleteMapping("api/books/{id}")
-    public Map<String, Object> removeBook(@PathVariable(name = "id") int id) {
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("count", bookService.removeBook(id));
-        resultMap.put("bookInfo", bookService.getBook(id));
-        return resultMap;
+    @GetMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
+    public ResponseEntity<HttpResponseBody> getBook(@PathVariable(name = "id") long id) {
+        BookDto.Response responseDto = new BookDto.Response(bookService.getBookById(id));
+        HttpResponseBody body = new HttpResponseBody("조회되었습니다.", responseDto);
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
-    @GetMapping("api/books/{id}")
-    public Book getBook(@PathVariable(name = "id") int id) { return bookService.getBook(id); }
-
-    @PutMapping("api/books/{id}")
-    public Map<String, Object> updateBook(@RequestBody Book book, @PathVariable(name = "id") int id) {
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("count", bookService.updateBook(book));
-        resultMap.put("bookInfo", bookService.getBook(id));
-        return resultMap;
+    @PutMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
+    public ResponseEntity<HttpResponseBody> updateBook(@RequestBody BookDto.Request requestDto, @PathVariable(name = "id") long id) {
+        BookDto.Response responseDto = new BookDto.Response(bookService.updateBook(id, requestDto));
+        HttpResponseBody body = new HttpResponseBody("수정되었습니다.", responseDto);
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 }

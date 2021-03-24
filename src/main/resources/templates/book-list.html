@@ -52,7 +52,6 @@
                     <td th:text="${book.title}" contenteditable="true">제목</td>
                     <td>
                         <select>
-                            <option th:selected="${book.categoryId} == null" value="">미분류</option>
                             <th:block th:each="category : ${categories}">
                                 <option th:selected="${book.categoryId} == ${category.id}" th:value="${category.id}" th:text="${category.name}">분류</option>
                             </th:block>
@@ -101,16 +100,28 @@
             </tbody>
         </table>
     </div>
-    <div class="border row-span-1 col-span-9">
+    <div th:if="${search.criteria} != null" th:with="queryString = '?' + ${search.criteria} + '=' + ${#strings.arrayJoin(search.keyword, ' ')}" class="border row-span-1 col-span-9">
         <th:block th:if="${pagination.firstPage} != 1">
-            <a th:href="@{'/book-list/1' + ${search}}" title="첫 페이지로"><<</a>
-            <a th:href="@{'/book-list/' + ${currentPage - 10} + ${search}}" title="이전 10페이지로"><</a>
+            <a th:href="@{'/book-list/1' + ${queryString}}" title="첫 페이지로"><<</a>
+            <a th:href="@{'/book-list/' + ${currentPage - 10} + ${queryString}}" title="이전 10페이지로"><</a>
         </th:block>
         <a th:each="currentPage : ${#numbers.sequence(pagination.firstPage, pagination.lastPage)}" th:text="${currentPage}"
-           th:href="@{'/book-list/'+${currentPage}+${search}}" th:class="(${currentPage} == ${pagination.currentPage}) ? 'bold' : ''">0</a>
+           th:href="@{'/book-list/' + ${currentPage} + ${queryString}}" th:class="(${currentPage} == ${pagination.currentPage}) ? 'bold' : ''">0</a>
         <th:block th:if="${pagination.pageCount} != ${pagination.lastPage}">
-            <a th:href="@{'/book-list/' + ${currentPage + 10} + ${search}}" title="다음 10페이지로">></a>
-            <a th:href="@{'/book-list/' + ${pagination.pageCount} + ${search}}" title="마지막 페이지로">>></a>
+            <a th:href="@{'/book-list/' + ${currentPage + 10} + ${queryString}}" title="다음 10페이지로">></a>
+            <a th:href="@{'/book-list/' + ${pagination.pageCount} + ${queryString}}" title="마지막 페이지로">>></a>
+        </th:block>
+    </div>
+    <div th:if="${search.criteria} == null" class="border row-span-1 col-span-9">
+        <th:block th:if="${pagination.firstPage} != 1">
+            <a th:href="@{'/book-list/1'}" title="첫 페이지로"><<</a>
+            <a th:href="@{'/book-list/' + ${currentPage - 10}}" title="이전 10페이지로"><</a>
+        </th:block>
+        <a th:each="currentPage : ${#numbers.sequence(pagination.firstPage, pagination.lastPage)}" th:text="${currentPage}"
+           th:href="@{'/book-list/' + ${currentPage}}" th:class="(${currentPage} == ${pagination.currentPage}) ? 'bold' : ''">0</a>
+        <th:block th:if="${pagination.pageCount} != ${pagination.lastPage}">
+            <a th:href="@{'/book-list/' + ${currentPage + 10}}" title="다음 10페이지로">></a>
+            <a th:href="@{'/book-list/' + ${pagination.pageCount}}" title="마지막 페이지로">>></a>
         </th:block>
     </div>
 </div>

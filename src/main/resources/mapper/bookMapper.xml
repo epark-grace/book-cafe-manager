@@ -2,64 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.park.e.bookcafemanager.repository.BookMapper">
 
-    <select id="selectBookCount" resultType="int">
+
+    <select id="count" resultType="long">
         SELECT COUNT(*) FROM BOOK
-        <if test="search != null">
-            WHERE
-            <foreach collection="search.column" item="word" separator="AND">
-                REPLACE(${search.column},' ','') LIKE '%${word}%'
-            </foreach>
-        </if>
-    </select>
-
-    <insert id="insertBook" parameterType="list" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO book (category_id, title, publisher, author, volume, shelf_name, row_number, finished, for_adult) VALUES
-        <foreach collection="list" item="book" separator=",">
-            (#{book.categoryId}, #{book.title}, #{book.publisher}, #{book.author}, #{book.volume}, #{book.shelfName}, #{book.rowNumber}, #{book.finished}, #{book.forAdult})
+        WHERE
+        <foreach collection="search.keyword" item="word" separator="AND">
+            REGEXP_REPLACE(${search.criteria}, '[^0-9a-zA-Z가-힣]+','') LIKE '%${word}%'
         </foreach>
-    </insert>
-
-    <delete id="deleteBookById">
-        DELETE FROM book WHERE id = #{id}
-    </delete>
-
-    <select id="selectBookById" resultType="dev.park.e.bookcafemanager.dto.Book">
-        SELECT b.id, b.category_id, c.name category_name, b.title, b.publisher, b.author, b.volume, b.shelf_name, b.row_number, b.finished, b.for_adult, b.registration_date, b.modification_date
-        FROM book b
-        LEFT JOIN category c on b.category_id = c.id
-        WHERE b.id = #{id}
     </select>
 
-    <select id="selectBookList" resultType="dev.park.e.bookcafemanager.dto.Book">
-        SELECT id, title, category_id, author, publisher, volume, shelf_name, row_number, finished, for_adult
+    <select id="findAllBy" resultType="dev.park.e.bookcafemanager.dto.BookDto$Response">
+        SELECT *
         FROM book
-        <choose>
-            <when test="search != null">
-                WHERE
-                <foreach collection="search.column" item="word" separator="AND">
-                    REPLACE(${search.column}, ' ', '') LIKE '%{word}%'
-                </foreach>
-                ORDER BY CHAR_LENGTH(${search.column}) ASC
-            </when>
-            <otherwise>
-                ORDER BY id ASC
-            </otherwise>
-        </choose>
-        LIMIT #{rowCount}, #{rowLimit}
+        WHERE
+        <foreach collection="search.keyword" item="word" separator="AND">
+            REGEXP_REPLACE(${search.criteria}, '[^0-9a-zA-Z가-힣]+','') LIKE '%${word}%'
+        </foreach>
+        ORDER BY CHAR_LENGTH(${search.criteria}) ASC
+        LIMIT ${rowCount}, ${rowLimit}
     </select>
 
-    <update id="updateBook" parameterType="dev.park.e.bookcafemanager.dto.Book">
-        UPDATE book
-        SET title = #{title},
-            category_id = #{categoryId},
-            author = #{author},
-            publisher = #{publisher},
-            volume = #{volume},
-            shelf_name = #{shelfName},
-            row_number = #{rowNumber},
-            finished = #{finished},
-            for_adult = #{forAdult},
-            modification_date = current_timestamp
-        WHERE id = #{id}
-    </update>
 </mapper>

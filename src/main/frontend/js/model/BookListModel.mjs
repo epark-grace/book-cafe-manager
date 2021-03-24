@@ -5,13 +5,11 @@ export default class BookListModel {
         return await Ajax.request(`/api/books/${id}`);
     }
 
-    async updateBookInfo(modifiedBookInfo) {
-        return await Ajax.request(`/api/books/${modifiedBookInfo.id}`, 'PUT', modifiedBookInfo);
+    async updateBookInfo(id, modifiedBookInfo) {
+        return await Ajax.request(`/api/books/${id}`, 'PUT', modifiedBookInfo);
     }
 
     async deleteBookInfo(id) {
-        const result = await Ajax.request(`/api/books/${id}`, 'DELETE');
-        result.bookInfo = {id: id};
-        return result;
+        return await Ajax.request(`/api/books/${id}`, 'DELETE');
     }
 }
