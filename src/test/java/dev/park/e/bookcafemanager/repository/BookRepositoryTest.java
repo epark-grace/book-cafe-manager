@@ -19,7 +19,6 @@ class BookRepositoryTest {
     @Autowired
     BookRepository bookRepository;
 
-    //TODO CategoryRepository 의존성 문제 해결
     @Autowired
     CategoryRepository categoryRepository;
 
