@@ -19,17 +19,19 @@
         </ul>
     </nav>
     <div class="border row-span-1 col-span-9">
-        <select id="criteria">
-            <option value="title" selected>제목</option>
-            <option value="author">작가</option>
-        </select>
-        <input type="text" placeholder="검색어를 입력하세요">
-        <button>검색</button>
+        <form th:action="@{/book-list/1}" class="inline">
+            <select th:name="criteria">
+                <option value="title" th:selected="${search.criteria} != 'author'">제목</option>
+                <option value="author" th:selected="${search.criteria} == 'author'">작가</option>
+            </select>
+            <input th:name="keyword" type="search" placeholder="검색어를 입력하세요" minlength="1" autofocus>
+            <button data-feature="search">검색</button>
+        </form>
         <button>도서 등록</button>
         <button>책장번호 일괄변경</button>
     </div>
     <div class="border row-span-1 col-span-9">
-        <table>
+        <table id="book-list">
             <thead>
             <tr>
                 <td>표지</td>
@@ -46,7 +48,7 @@
                 <td></td>
             </tr>
             </thead>
-            <tbody id="book-list">
+            <tbody>
                 <tr th:each="book : ${bookList}" th:data-id="${book.id}" class="hover:text-blue-900" >
                     <td></td>
                     <td th:text="${book.title}" contenteditable="true">제목</td>
@@ -100,7 +102,7 @@
             </tbody>
         </table>
     </div>
-    <div th:if="${search.criteria} != null" th:with="queryString = '?' + ${search.criteria} + '=' + ${#strings.arrayJoin(search.keyword, ' ')}" class="border row-span-1 col-span-9">
+    <div th:if="${search.criteria} != null" th:with="queryString = '?criteria=' + ${search.criteria} + '&keyword=' + ${#strings.arrayJoin(search.keyword, ' ')}" class="border row-span-1 col-span-9">
         <th:block th:if="${pagination.firstPage} != 1">
             <a th:href="@{'/book-list/1' + ${queryString}}" title="첫 페이지로"><<</a>
             <a th:href="@{'/book-list/' + ${currentPage - 10} + ${queryString}}" title="이전 10페이지로"><</a>

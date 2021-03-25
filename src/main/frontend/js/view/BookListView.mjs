@@ -10,10 +10,9 @@ export default class BookListView {
             const button = event.target.closest('button');
             if (!button) return;
 
+            const feature = button.dataset.feature;
             const tr = button.closest('tr');
             const title = tr.cells[1].textContent;
-            const id = tr.dataset.id;
-            const feature = button.dataset.feature;
             let answer;
 
             if (feature === 'reset') {
@@ -26,6 +25,7 @@ export default class BookListView {
 
             if (!answer) return;
 
+            const id = tr.dataset.id;
             const handler = `handle${feature[0].toUpperCase()}${feature.slice(1)}BookInfo`;
             const message = await controller[handler](id);
             alert(message);
