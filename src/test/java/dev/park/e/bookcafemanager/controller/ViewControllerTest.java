@@ -140,6 +140,18 @@ class ViewControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    public void 책장번호_일괄변경_페이지() throws Exception {
+        //given
+        String uri = "/shelf-editor";
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(uri));
+
+        //then
+        resultActions.andExpect(view().name("shelf-editor"));
+    }
+
     private BookDto.Request getBookRequestDto(int i) {
         BookDto.Request dto = new BookDto.Request();
         dto.setAuthor("작가" + i);

@@ -21,6 +21,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -131,6 +132,22 @@ class BookControllerTest {
                 .andExpect(content().string(objectMapper.writeValueAsString(body)))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andDo(print());
+    }
+
+    @Test
+    void 책장번호_일괄변경() throws Exception {
+        //given
+        String uri = "/books";
+        String existingShelfName = "1";
+
+        //when
+        ResultActions resultActions = mockMvc.perform(patch(uri).param("shelf-name", existingShelfName)
+                .content("{\"newShelfName\":\"2\"}")
+                .contentType("application/json"));
+
+        //then
+        then(bookService).should().updateShelfName(existingShelfName, "2");
+        resultActions.andExpect(status().isNoContent());
     }
 
     private BookDto.Request getBookRequestDto(int i) {

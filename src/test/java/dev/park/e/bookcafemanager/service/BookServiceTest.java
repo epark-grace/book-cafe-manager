@@ -41,16 +41,16 @@ class BookServiceTest {
         //given
         int currentPage = 1;
 
-        List<Book> booksMock = new ArrayList<>();
-        booksMock.add(getBookWithCategory());
+        List<Book> bookMocks = new ArrayList<>();
+        bookMocks.add(getBookWithCategory(1));
 
-        given(bookRepository.findAll(anyLong(), anyInt())).willReturn(booksMock);
+        given(bookRepository.findAll(anyLong(), anyInt())).willReturn(bookMocks);
 
         //when
         List<Book> books = bookService.getBooks(currentPage);
 
         //then
-        assertThat(books.get(0).getTitle()).isEqualTo("제목");
+        assertThat(books).usingRecursiveComparison().isEqualTo(bookMocks);
     }
 
     @Test
@@ -60,7 +60,7 @@ class BookServiceTest {
         Search search = new Search("title", "제목");
 
         List<BookDto.Response> booksMock = new ArrayList<>();
-        booksMock.add(new BookDto.Response(getBookWithCategory()));
+        booksMock.add(new BookDto.Response(getBookWithCategory(1)));
 
         given(bookMapper.findAllBy(anyLong(), anyInt(), any(Search.class))).willReturn(booksMock);
 
@@ -75,7 +75,7 @@ class BookServiceTest {
     void 도서_수정() {
         //given
         long id = 1;
-        Book book = getBookWithCategory();
+        Book book = getBookWithCategory(1);
         given(bookRepository.findById(anyLong())).willReturn(Optional.ofNullable(book));
         Category category = Category.builder().name("다른카테고리").build();
         given(categoryService.getCategory(anyLong())).willReturn(category);
@@ -97,17 +97,24 @@ class BookServiceTest {
         assertThat(book).usingRecursiveComparison(RecursiveComparisonConfiguration.builder().build()).ignoringFields("id", "category").isEqualTo(dto);
     }
 
-    private Book getBookWithCategory() {
-        return Book.builder().author("작가")
-                .category(Category.builder().name("카테고리").build())
-                .finished(true)
-                .forAdult(true)
-                .publisher("출판사")
-                .volume((short) 1)
-                .shelfName("1")
-                .rowNumber((short) 1)
-                .title("제목")
-                .build();
+    @Test
+    void 책장번호_일괄변경() {
+        //given
+        String existingShelfName = "1";
+        String newShelfName = "2";
+        List<Book> bookMocks = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            bookMocks.add(getBookWithCategory(1));
+        }
+
+        given(bookRepository.findByShelfName(existingShelfName)).willReturn(bookMocks);
+
+        //when
+        bookService.updateShelfName(existingShelfName, newShelfName);
+
+        //then
+        assertThat(bookMocks).allSatisfy(book -> assertThat(book.getShelfName()).isEqualTo("2"));
     }
 
     private BookDto.Request getBookRequestDto(int i) {

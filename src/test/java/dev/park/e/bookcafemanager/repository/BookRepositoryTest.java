@@ -75,6 +75,18 @@ class BookRepositoryTest {
         assertThat(bookRepository.findById(book.getId())).isEmpty();
     }
 
+    @Test
+    void 책장번호로_도서_조회() {
+        //given
+        String shelfName = "1";
+
+        //when
+        List<Book> books = bookRepository.findByShelfName(shelfName);
+
+        //then
+        assertThat(books).allSatisfy(book -> assertThat(book.getShelfName()).isEqualTo(shelfName));
+    }
+
     private Book getBookWithCategory(int index) {
         Category category = Category.builder().name("카테고리" + index).build();
         categoryRepository.save(category);
