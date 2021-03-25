@@ -70,4 +70,8 @@ public class Book {
         this.finished = finished;
         this.forAdult = forAdult;
     }
+
+    public void updateShelfName(String newShelfName) {
+        this.shelfName = newShelfName;
+    }
 }

@@ -48,13 +48,19 @@ public class BookService {
         return bookRepository.findAll(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT);
     }
 
-
-
     @Transactional
     public Book updateBook(long id, BookDto.Request dto) {
         Book book = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("BookService.updateBook(" + id + "): 존재하지않는 Book ID"));
         Category category = categoryService.getCategory(dto.getCategoryId());;
         book.update(category, dto.getTitle(), dto.getAuthor(), dto.getPublisher(), dto.getVolume(), dto.getShelfName(), dto.getRowNumber(), dto.getFinished(), dto.getForAdult());
         return book;
+    }
+
+    @Transactional
+    public void updateShelfName(String existingShelfName, String newShelfName) {
+        List<Book> books = bookRepository.findByShelfName(existingShelfName);
+        for (Book book : books) {
+            book.updateShelfName(newShelfName);
+        }
     }
 }

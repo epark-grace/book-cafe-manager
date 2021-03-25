@@ -56,4 +56,9 @@ public class ViewController {
 
         return "book-list";
     }
+
+    @GetMapping("/shelf-editor")
+    public String shelfEditor() {
+        return "shelf-editor";
+    }
 }

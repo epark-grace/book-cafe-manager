@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Cafe Manager - 책장번호 일괄변경</title>
+  <link th:href="@{/css/tailwind.css}" href="../static/css/tailwind.css">
+</head>
+<body>
+<nav th:insert="fragment :: admin-menu"></nav>
+<div id="form">
+  <label>변경 전 책장번호
+    <input id="before" minlength="1" type="text">
+  </label>
+  <br>
+  <label>변경 후 책장번호
+    <input id="after" minlength="1" type="text">
+  </label>
+  <br>
+  <button id="save">확인</button>
+</div>
+<script th:src="@{/js/vendors.bundle.js}" src="../static/js/vendors.bundle.js"></script>
+<script th:src="@{/js/shelf-editor.bundle.js}" src="../static/js/shelf-editor.bundle.js"></script>
+</body>
+</html>

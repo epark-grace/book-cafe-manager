@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -45,5 +46,11 @@ public class BookController {
         BookDto.Response responseDto = new BookDto.Response(bookService.updateBook(id, requestDto));
         HttpResponseBody body = new HttpResponseBody("수정되었습니다.", responseDto);
         return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/books")
+    public ResponseEntity<Void> updateShelfName(@RequestParam("shelf-name") String existingShelfName, @RequestBody Map<String, String> body) {
+        bookService.updateShelfName(existingShelfName, body.get("newShelfName"));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
