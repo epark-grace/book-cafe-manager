@@ -7,17 +7,7 @@
 </head>
 <body>
 <div class="h-screen grid grid-cols-10 grid-rows-booklist">
-    <nav class="border row-span-3 col-span-1">
-        <ul>
-            <li>도서목록</li>
-            <li>신간도서</li>
-            <li>추천도서</li>
-            <li>분류</li>
-            <li>설정</li>
-            <li>모드 변경</li>
-            <li>로그아웃</li>
-        </ul>
-    </nav>
+    <nav th:insert="fragment :: admin-menu" class="border row-span-3 col-span-1"></nav>
     <div class="border row-span-1 col-span-9">
         <form th:action="@{/book-list/1}" class="inline">
             <select th:name="criteria">
