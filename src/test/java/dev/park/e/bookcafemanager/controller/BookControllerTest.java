@@ -101,7 +101,7 @@ class BookControllerTest {
 
         //then
         BookDto.Response responseDto = new BookDto.Response(bookEntity);
-        HttpResponseBody body = new HttpResponseBody("", responseDto);
+        HttpResponseBody body = new HttpResponseBody("조회되었습니다.", responseDto);
 
         resultActions.andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(body)))

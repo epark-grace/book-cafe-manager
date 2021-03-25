@@ -136,7 +136,7 @@ class ViewControllerTest {
                 .andExpect(model().attribute("pagination", pagination))
                 .andExpect(model().attribute("categories", CategoryDto.Response.listOf(categories)))
                 .andExpect(model().attribute("search", Matchers.any(Search.class)))
-                .andExpect(content().string(containsString("?" + criteria + "=" + String.join(" ", search.getKeyword()))))
+                .andExpect(content().string(containsString("?criteria=" + criteria + "&amp;keyword=" + String.join(" ", search.getKeyword()))))
                 .andDo(print());
     }
 
