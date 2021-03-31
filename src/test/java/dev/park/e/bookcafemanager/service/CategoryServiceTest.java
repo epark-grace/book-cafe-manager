@@ -1,5 +1,6 @@
 package dev.park.e.bookcafemanager.service;
 
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class CategoryServiceTest {
         int count = 10;
         List<Category> categoriesMock = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
-            categoriesMock.add(getCategory(i));
+            categoriesMock.add(ObjectFactory.getCategoryEntityWithId(i));
         }
         given(categoryRepository.findAll()).willReturn(categoriesMock);
 
@@ -47,7 +48,7 @@ class CategoryServiceTest {
     @Test
     void 단일카테고리_조회() {
         //given
-        Category categoryMock = getCategory(1);
+        Category categoryMock = ObjectFactory.getCategoryEntityWithId(1);
         given(categoryRepository.findById(anyLong())).willReturn(Optional.ofNullable(categoryMock));
 
         //when
@@ -55,9 +56,5 @@ class CategoryServiceTest {
 
         //then
         assertThat(category).isEqualTo(categoryMock);
-    }
-
-    private Category getCategory(int index) {
-        return Category.builder().name("카테고리" + index).build();
     }
 }

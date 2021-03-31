@@ -1,5 +1,6 @@
 package dev.park.e.bookcafemanager.repository;
 
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Category;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,7 @@ class CategoryRepositoryTest {
     void 카테고리_생성_및_조회() {
         //given
         assertThat(categoryRepository.count()).isEqualTo(0);
-        String name = "name";
-        Category category = Category.builder().name(name).build();
+        Category category = ObjectFactory.getCategoryEntityWithoutId(1);
 
         //when
         categoryRepository.save(category);
@@ -29,13 +29,13 @@ class CategoryRepositoryTest {
         assertThat(categoryRepository.count()).isEqualTo(1);
 
         List<Category> categories = categoryRepository.findAll();
-        assertThat(categories.get(0).getName()).isEqualTo(name);
+        assertThat(categories.get(0).getName()).isEqualTo("카테고리1");
     }
 
     @Test
     void 카테고리_ID로_검색() {
         //given
-        Category category = Category.builder().name("카테고리").build();
+        Category category = ObjectFactory.getCategoryEntityWithoutId(1);
         categoryRepository.save(category);
 
         //when

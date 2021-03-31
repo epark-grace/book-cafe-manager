@@ -1,5 +1,6 @@
 package dev.park.e.bookcafemanager.repository;
 
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Book;
 import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.dto.Pagination;
@@ -30,7 +31,9 @@ class BookRepositoryTest {
         int count = 20;
         List<Book> books = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
-            books.add(getBookWithCategory(i));
+            Book book = ObjectFactory.getBookEntityWithoutId(i);
+            categoryRepository.save(book.getCategory());
+            books.add(book);
         }
 
         //When
@@ -50,21 +53,23 @@ class BookRepositoryTest {
     @Test
     void 단일도서_조회() {
         //given
-        Book book = getBookWithCategory(1);
+        Book book = ObjectFactory.getBookEntityWithId(1);
+        categoryRepository.save(book.getCategory());
         bookRepository.save(book);
 
         //when
         Book savedBook = bookRepository.findById(book.getId()).get();
 
         //then
-        assertThat(savedBook).isEqualTo(book);
+        assertThat(savedBook).usingRecursiveComparison().isEqualTo(book);
         assertThat(savedBook.getId()).isNotNull();
     }
 
     @Test
     void 도서_삭제() {
         //given
-        Book book = getBookWithCategory(1);
+        Book book = ObjectFactory.getBookEntityWithoutId(1);
+        categoryRepository.save(book.getCategory());
         bookRepository.save(book);
 
         //when
@@ -84,20 +89,5 @@ class BookRepositoryTest {
 
         //then
         assertThat(books).allSatisfy(book -> assertThat(book.getShelfName()).isEqualTo(shelfName));
-    }
-
-    private Book getBookWithCategory(int index) {
-        Category category = Category.builder().name("카테고리" + index).build();
-        categoryRepository.save(category);
-        return Book.builder().author("작가" + index)
-                .category(category)
-                .finished(true)
-                .forAdult(true)
-                .publisher("출판사" + index)
-                .volume((short) index)
-                .shelfName(Integer.toString(index))
-                .rowNumber((short) index)
-                .title("제목" + index)
-                .build();
     }
 }

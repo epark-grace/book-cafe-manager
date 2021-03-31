@@ -1,5 +1,6 @@
 package dev.park.e.bookcafemanager.controller;
 
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Book;
 import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.dto.BookDto;
@@ -15,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -69,12 +72,12 @@ class ViewControllerTest {
 
         List<Book> bookEntities = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            bookEntities.add(getBookWithCategory(i));
+            bookEntities.add(ObjectFactory.getBookEntityWithId(i));
         }
 
         Pagination pagination = new Pagination(30, page);
         List<Category> categories = new ArrayList<>();
-        categories.add(Category.builder().name("카테고리").build());
+        categories.add(ObjectFactory.getCategoryEntityWithId(1));
 
         given(bookService.getBooks(anyInt())).willReturn(bookEntities);
         given(paginationService.getPagination(anyInt(), any(Search.class))).willReturn(pagination);
@@ -141,7 +144,7 @@ class ViewControllerTest {
     }
 
     @Test
-    public void 책장번호_일괄변경_페이지() throws Exception {
+    void 책장번호_일괄변경_페이지() throws Exception {
         //given
         String uri = "/shelf-editor";
 
@@ -149,33 +152,30 @@ class ViewControllerTest {
         ResultActions resultActions = mockMvc.perform(get(uri));
 
         //then
-        resultActions.andExpect(view().name("shelf-editor"));
+        resultActions.andExpect(status().isOk())
+                .andExpect(view().name("shelf-editor"));
     }
 
-    private BookDto.Request getBookRequestDto(int i) {
-        BookDto.Request dto = new BookDto.Request();
-        dto.setAuthor("작가" + i);
-        dto.setFinished(true);
-        dto.setCategoryId((long) i);
-        dto.setPublisher("출판사" + i);
-        dto.setForAdult(true);
-        dto.setRowNumber((short) i);
-        dto.setShelfName(String.valueOf(i));
-        dto.setVolume((short) i);
-        dto.setTitle("제목" + i);
-        return dto;
-    }
+    @Test
+    void 도서_등록_페이지() throws Exception {
+        //given
+        String uri = "/book-creation-form";
+        List<Category> categories = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            categories.add(ObjectFactory.getCategoryEntityWithId(i));
+        }
+        given(categoryService.getCategories()).willReturn(categories);
 
-    private Book getBookWithCategory(int i) {
-        return Book.builder().author("작가" + i)
-                .category(Category.builder().name("카테고리" + i).build())
-                .finished(true)
-                .forAdult(true)
-                .publisher("출판사" + i)
-                .volume((short) i)
-                .shelfName(String.valueOf(i))
-                .rowNumber((short) i)
-                .title("제목" + i)
-                .build();
+        List<CategoryDto.Response> categoriesDto = CategoryDto.Response.listOf(categories);
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(uri));
+
+        //then
+        MvcResult result = resultActions.andExpect(status().isOk())
+                .andExpect(view().name("book-creation-form"))
+                .andReturn();
+
+        assertThat(result.getModelAndView().getModel().get("categories")).usingRecursiveComparison().isEqualTo(categoriesDto);
     }
 }

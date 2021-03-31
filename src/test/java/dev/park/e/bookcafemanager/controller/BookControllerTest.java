@@ -1,9 +1,9 @@
 package dev.park.e.bookcafemanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.converter.Converter;
 import dev.park.e.bookcafemanager.domain.Book;
-import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.dto.BookDto;
 import dev.park.e.bookcafemanager.dto.HttpResponseBody;
 import dev.park.e.bookcafemanager.service.BookService;
@@ -50,8 +50,8 @@ class BookControllerTest {
         List<Book> bookEntities = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            requestDtos.add(getBookRequestDto(i));
-            bookEntities.add(getBookWithCategory(i));
+            requestDtos.add(ObjectFactory.getBookRequestDto(i));
+            bookEntities.add(ObjectFactory.getBookEntityWithId(i));
         }
 
         given(bookConverter.toEntities(requestDtos)).willReturn(bookEntities);
@@ -94,7 +94,7 @@ class BookControllerTest {
         String uri = "/api/books/{id}";
         long id = 1;
 
-        Book bookEntity = getBookWithCategory(1);
+        Book bookEntity = ObjectFactory.getBookEntityWithId(1);
         given(bookService.getBookById(id)).willReturn(bookEntity);
 
         //when
@@ -115,8 +115,8 @@ class BookControllerTest {
         //given
         String uri = "/api/books/{id}";
         long id = 1;
-        BookDto.Request requestDto = getBookRequestDto(2);
-        Book book = getBookWithCategory(1);
+        BookDto.Request requestDto = ObjectFactory.getBookRequestDto(2);
+        Book book = ObjectFactory.getBookEntityWithId(1);
         given(bookService.updateBook(anyLong(), any(BookDto.Request.class))).willReturn(book);
 
         //when
@@ -148,32 +148,5 @@ class BookControllerTest {
         //then
         then(bookService).should().updateShelfName(existingShelfName, "2");
         resultActions.andExpect(status().isNoContent());
-    }
-
-    private BookDto.Request getBookRequestDto(int i) {
-        BookDto.Request dto = new BookDto.Request();
-        dto.setAuthor("작가" + i);
-        dto.setFinished(true);
-        dto.setCategoryId((long) i);
-        dto.setPublisher("출판사" + i);
-        dto.setForAdult(true);
-        dto.setRowNumber((short) i);
-        dto.setShelfName(String.valueOf(i));
-        dto.setVolume((short) i);
-        dto.setTitle("제목" + i);
-        return dto;
-    }
-
-    private Book getBookWithCategory(int i) {
-        return Book.builder().author("작가" + i)
-                .category(Category.builder().name("카테고리" + i).build())
-                .finished(true)
-                .forAdult(true)
-                .publisher("출판사" + i)
-                .volume((short) i)
-                .shelfName(String.valueOf(i))
-                .rowNumber((short) i)
-                .title("제목" + i)
-                .build();
     }
 }

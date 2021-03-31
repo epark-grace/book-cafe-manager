@@ -1,5 +1,6 @@
 package dev.park.e.bookcafemanager.repository;
 
+import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Book;
 import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.dto.BookDto;
@@ -45,7 +46,7 @@ class BookMapperTest {
         CategoryRepository categoryRepository = applicationContext.getBean(CategoryRepository.class);
         BookRepository bookRepository = applicationContext.getBean(BookRepository.class);
 
-        Category category = Category.builder().name("카테고리").build();
+        Category category = ObjectFactory.getCategoryEntityWithoutId(1);
         categoryRepository.save(category);
 
         List<Book> books = new ArrayList<>();
