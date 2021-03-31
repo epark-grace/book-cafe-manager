@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 public class SeojiInfoDto {
 
+    private String isbn;
     private String title;
     private String author;
     private String publisher;
@@ -17,7 +18,7 @@ public class SeojiInfoDto {
     @JsonProperty("docs")
     public void flattenNestedProperties(List<Map<String, Object>> docs) {
         Map<String, Object> seojiInfo = docs.get(0);
-
+        this.isbn = (String) seojiInfo.get("EA_ISBN");
         this.title = (String) seojiInfo.get("TITLE");
         this.author = (String) seojiInfo.get("AUTHOR");
         this.publisher = (String) seojiInfo.get("PUBLISHER");
