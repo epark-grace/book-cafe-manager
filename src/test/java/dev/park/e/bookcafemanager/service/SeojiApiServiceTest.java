@@ -55,6 +55,7 @@ class SeojiApiServiceTest {
         SeojiInfoDto seojiInfoDto = seojiApiService.getSeojiInfoByIsbn(isbn);
 
         //then
+        assertThat(seojiInfoDto.getIsbn()).isEqualTo(isbn);
         assertThat(seojiInfoDto.getAuthor()).isEqualTo("작가");
         assertThat(seojiInfoDto.getPublisher()).isEqualTo("출판사");
         assertThat(seojiInfoDto.getTitle()).isEqualTo("제목");
