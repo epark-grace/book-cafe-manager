@@ -17,7 +17,7 @@
             <input th:name="keyword" type="search" placeholder="검색어를 입력하세요" minlength="1" autofocus>
             <button data-feature="search">검색</button>
         </form>
-        <button>도서 등록</button>
+        <a th:href="@{/book-creation-form}" href="./book-creation-form.html">도서 등록</a>
         <a th:href="@{/shelf-editor}" href="./shelf-editor.html">책장번호 일괄변경</a>
     </div>
     <div class="border row-span-1 col-span-9">

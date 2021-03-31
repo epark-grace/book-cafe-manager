@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Cafe Manager - 도서 등록</title>
+  <link rel="stylesheet" href="../static/css/tailwind.css" th:href="@{/css/tailwind.css}">
+</head>
+<body>
+<nav th:insert="fragment :: admin-menu"></nav>
+<div>
+  <table>
+    <tr>
+      <td>표지</td>
+      <td><input type="number" placeholder="ISBN"><button>정보 불러오기</button></td>
+      <td><input type="text" placeholder="제목"></td>
+      <td>
+        <select name="category">
+          <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.name} == '미분류'">분류</option>
+        </select>
+      </td>
+      <td><input type="text" placeholder="작가"></td>
+      <td><input type="text" placeholder="출판사"></td>
+      <td><input type="number" placeholder="권수"></td>
+      <td><input type="text" placeholder="책장번호"></td>
+      <td><input type="number" placeholder="칸번호"></td>
+      <td>
+        <select name="finished">
+          <option value="false" selected>미완결</option>
+          <option value="true">완결</option>
+        </select>
+      </td>
+      <td>
+        <select name="forAdult">
+          <option value="false" selected>전체이용가</option>
+          <option value="true">청소년이용불가</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="9"><button>행 추가</button></td>
+    </tr>
+  </table>
+  <button>도서 등록</button>
+</div>
+</body>
+</html>

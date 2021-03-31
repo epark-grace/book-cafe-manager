@@ -61,4 +61,11 @@ public class ViewController {
     public String shelfEditor() {
         return "shelf-editor";
     }
+
+    @GetMapping("/book-creation-form")
+    public String bookCreationForm(Model model) {
+        List<CategoryDto.Response> categoriesDto = CategoryDto.Response.listOf(categoryService.getCategories());
+        model.addAttribute("categories", categoriesDto);
+        return "book-creation-form";
+    }
 }
