@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -19,6 +21,9 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @OneToMany(mappedBy = "book")
+    final private List<Isbn> isbn = new ArrayList<>();
 
     @Column(length = 50, nullable = false)
     private String title;
