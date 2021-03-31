@@ -29,20 +29,20 @@ public class BookController {
     }
 
     @DeleteMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
-    public ResponseEntity<HttpResponseBody> deleteBook(@PathVariable(name = "id") long id) {
+    public ResponseEntity<HttpResponseBody> deleteBookById(@PathVariable(name = "id") long id) {
         HttpResponseBody body = new HttpResponseBody("삭제되었습니다.", bookService.deleteBookById(id));
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     @GetMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
-    public ResponseEntity<HttpResponseBody> getBook(@PathVariable(name = "id") long id) {
+    public ResponseEntity<HttpResponseBody> getBookById(@PathVariable(name = "id") long id) {
         BookDto.Response responseDto = new BookDto.Response(bookService.getBookById(id));
         HttpResponseBody body = new HttpResponseBody("조회되었습니다.", responseDto);
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     @PutMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
-    public ResponseEntity<HttpResponseBody> updateBook(@RequestBody BookDto.Request requestDto, @PathVariable(name = "id") long id) {
+    public ResponseEntity<HttpResponseBody> updateBookById(@RequestBody BookDto.Request requestDto, @PathVariable(name = "id") long id) {
         BookDto.Response responseDto = new BookDto.Response(bookService.updateBook(id, requestDto));
         HttpResponseBody body = new HttpResponseBody("수정되었습니다.", responseDto);
         return new ResponseEntity<>(body, HttpStatus.OK);
