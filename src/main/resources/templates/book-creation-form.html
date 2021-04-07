@@ -8,10 +8,15 @@
 <body>
 <nav th:insert="fragment :: admin-menu"></nav>
 <div>
-  <table>
+  <table id="book-creation-form">
     <tr>
       <td>표지</td>
-      <td><input type="number" placeholder="ISBN"><button>정보 불러오기</button></td>
+      <td>
+        <form>
+          <input type="number" placeholder="ISBN">
+          <button type="submit">정보 불러오기</button>
+        </form>
+      </td>
       <td><input type="text" placeholder="제목"></td>
       <td>
         <select name="category">
@@ -42,5 +47,7 @@
   </table>
   <button>도서 등록</button>
 </div>
+<script src="../static/js/vendors.bundle.js" th:src="@{/js/vendors.bundle.js}"></script>
+<script src="../static/js/book-creation-form.bundle.js" th:src="@{/js/book-creation-form.bundle.js}"></script>
 </body>
 </html>
