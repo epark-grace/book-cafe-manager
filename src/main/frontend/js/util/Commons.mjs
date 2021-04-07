@@ -15,7 +15,7 @@ export class Ajax {
             response = await fetch(url, init);
         }
 
-        return response;
+        return response.json();
     }
 }
 
