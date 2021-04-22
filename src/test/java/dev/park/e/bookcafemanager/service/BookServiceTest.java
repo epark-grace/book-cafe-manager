@@ -44,7 +44,7 @@ class BookServiceTest {
         List<Book> bookMocks = new ArrayList<>();
         bookMocks.add(ObjectFactory.getBookEntityWithId(1));
 
-        given(bookRepository.findAll(anyLong(), anyInt())).willReturn(bookMocks);
+        given(bookRepository.findUsingLimit(anyLong(), anyInt())).willReturn(bookMocks);
 
         //when
         List<Book> books = bookService.getBooks(currentPage);
@@ -62,13 +62,30 @@ class BookServiceTest {
         List<BookDto.Response> booksMock = new ArrayList<>();
         booksMock.add(new BookDto.Response(ObjectFactory.getBookEntityWithId(1)));
 
-        given(bookMapper.findAllBy(anyLong(), anyInt(), any(Search.class))).willReturn(booksMock);
+        given(bookMapper.findUsingLimitBy(anyLong(), anyInt(), any(Search.class))).willReturn(booksMock);
 
         //when
         List<BookDto.Response> books = bookService.getBooksBySearch(currentPage, search);
 
         //then
         assertThat(books).isEqualTo(booksMock);
+    }
+
+    @Test
+    void 도서_자동완성_검색() {
+        //given
+        Search search = new Search("title", "제목");
+        List<BookDto.Response> bookMocks = new ArrayList<>();
+        for (int i = 1; i <= 15; i++) {
+            bookMocks.add(new BookDto.Response(ObjectFactory.getBookEntityWithId(i)));
+        }
+        given(bookMapper.findBy(any(Search.class))).willReturn(bookMocks);
+
+        //when
+        List<BookDto.Response> bookDtos = bookService.getBooksByAutoCompleteSearch(search);
+
+        //then
+        assertThat(bookDtos).isEqualTo(bookMocks);
     }
 
     @Test

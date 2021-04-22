@@ -10,7 +10,7 @@
         </foreach>
     </select>
 
-    <select id="findAllBy" resultType="dev.park.e.bookcafemanager.dto.BookDto$Response">
+    <select id="findUsingLimitBy" resultType="dev.park.e.bookcafemanager.dto.BookDto$Response">
         SELECT *
         FROM book
         WHERE
@@ -19,6 +19,16 @@
         </foreach>
         ORDER BY CHAR_LENGTH(${search.criteria}) ASC
         LIMIT ${rowCount}, ${rowLimit}
+    </select>
+
+    <select id="findBy" resultType="dev.park.e.bookcafemanager.dto.BookDto$Response">
+        SELECT *
+        FROM book
+        WHERE
+        <foreach collection="search.keyword" item="word" separator="AND">
+            REGEXP_REPLACE(${search.criteria}, '[^0-9a-zA-Z가-힣]+','') LIKE '%${word}%'
+        </foreach>
+        ORDER BY CHAR_LENGTH(${search.criteria}) ASC
     </select>
 
 </mapper>

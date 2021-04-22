@@ -2,7 +2,6 @@ package dev.park.e.bookcafemanager.repository;
 
 import dev.park.e.bookcafemanager.ObjectFactory;
 import dev.park.e.bookcafemanager.domain.Book;
-import dev.park.e.bookcafemanager.domain.Category;
 import dev.park.e.bookcafemanager.dto.Pagination;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ class BookRepositoryTest {
         bookRepository.saveAll(books);
 
         //Then
-        List<Book> savedBooks = bookRepository.findAll(0, Pagination.ROW_LIMIT);
+        List<Book> savedBooks = bookRepository.findUsingLimit(0, Pagination.ROW_LIMIT);
         Collections.reverse(books);
 
         assertThat(bookRepository.count()).isEqualTo(count);

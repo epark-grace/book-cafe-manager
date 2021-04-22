@@ -77,7 +77,7 @@ class BookMapperTest {
 
         //when
         long count = bookMapper.count(search);
-        List<BookDto.Response> books = bookMapper.findAllBy(0, Pagination.ROW_LIMIT, search);
+        List<BookDto.Response> books = bookMapper.findUsingLimitBy(0, Pagination.ROW_LIMIT, search);
 
         //then
         assertThat(count).isEqualTo(12);
@@ -94,7 +94,7 @@ class BookMapperTest {
 
         //when
         long count = bookMapper.count(search);
-        List<BookDto.Response> books = bookMapper.findAllBy(0, Pagination.ROW_LIMIT, search);
+        List<BookDto.Response> books = bookMapper.findUsingLimitBy(0, Pagination.ROW_LIMIT, search);
 
         //then
         assertThat(count).isEqualTo(12);
@@ -111,7 +111,7 @@ class BookMapperTest {
 
         //when
         long count = bookMapper.count(search);
-        List<BookDto.Response> books = bookMapper.findAllBy(0, Pagination.ROW_LIMIT, search);
+        List<BookDto.Response> books = bookMapper.findUsingLimitBy(0, Pagination.ROW_LIMIT, search);
 
         //then
         assertThat(count).isEqualTo(11);
@@ -128,7 +128,75 @@ class BookMapperTest {
 
         //when
         long count = bookMapper.count(search);
-        List<BookDto.Response> books = bookMapper.findAllBy(0, Pagination.ROW_LIMIT, search);
+        List<BookDto.Response> books = bookMapper.findUsingLimitBy(0, Pagination.ROW_LIMIT, search);
+
+        //then
+        assertThat(count).isEqualTo(0);
+        assertThat(books.size()).isEqualTo(0);
+    }
+
+
+    @Test
+    void 구분자있는_순서유지_도서_자동완성_검색() {
+        //given
+        String criteria = "title";
+        String keyword = "제주도 고무줄 배영";
+        Search search = new Search(criteria, keyword);
+
+        //when
+        long count = bookMapper.count(search);
+        List<BookDto.Response> books = bookMapper.findBy(search);
+
+        //then
+        assertThat(count).isEqualTo(12);
+        assertThat(books.size()).isEqualTo(12);
+        assertThat(books.get(0).getTitle()).isEqualTo("제주도고무줄배영");
+    }
+
+    @Test
+    void 구분자있는_순서변경_도서_자동완성_검색() {
+        //given
+        String criteria = "title";
+        String keyword = "제주도 고무줄 배영";
+        Search search = new Search(criteria, keyword);
+
+        //when
+        long count = bookMapper.count(search);
+        List<BookDto.Response> books = bookMapper.findBy(search);
+
+        //then
+        assertThat(count).isEqualTo(12);
+        assertThat(books.size()).isEqualTo(12);
+        assertThat(books.get(0).getTitle()).isEqualTo("제주도고무줄배영");
+    }
+
+    @Test
+    void 구분자없는_순서유지_도서_자동완성_검색() {
+        //given
+        String criteria = "title";
+        String keyword = "제주도고무줄배영";
+        Search search = new Search(criteria, keyword);
+
+        //when
+        long count = bookMapper.count(search);
+        List<BookDto.Response> books = bookMapper.findBy(search);
+
+        //then
+        assertThat(count).isEqualTo(11);
+        assertThat(books.size()).isEqualTo(11);
+        assertThat(books.get(0).getTitle()).isEqualTo("제주도고무줄배영");
+    }
+
+    @Test
+    void 구분자없는_순서변경_도서_자동완성_검색() {
+        //given
+        String criteria = "title";
+        String keyword = "제주도배영고무줄";
+        Search search = new Search(criteria, keyword);
+
+        //when
+        long count = bookMapper.count(search);
+        List<BookDto.Response> books = bookMapper.findBy(search);
 
         //then
         assertThat(count).isEqualTo(0);

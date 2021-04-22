@@ -6,6 +6,7 @@ import dev.park.e.bookcafemanager.converter.Converter;
 import dev.park.e.bookcafemanager.domain.Book;
 import dev.park.e.bookcafemanager.dto.BookDto;
 import dev.park.e.bookcafemanager.dto.HttpResponseBody;
+import dev.park.e.bookcafemanager.dto.Search;
 import dev.park.e.bookcafemanager.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,31 @@ class BookControllerTest {
     }
 
     @Test
+    void 도서_자동완성_검색_조회() throws Exception {
+        //given
+        String uri = "/api/books";
+        Search search = new Search("title", "제목");
+        List<BookDto.Response> bookMocks = new ArrayList<>();
+        for (int i = 1; i <= 15; i++) {
+            bookMocks.add(new BookDto.Response(ObjectFactory.getBookEntityWithId(i)));
+        }
+
+        given(bookService.getBooksByAutoCompleteSearch(any(Search.class))).willReturn(bookMocks);
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(uri)
+                .param("criteria", search.getCriteria())
+                .param("keyword", search.getKeyword()));
+
+        //then
+        HttpResponseBody body = new HttpResponseBody("", bookMocks);
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(body)))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andDo(print());
+    }
+
+    @Test
     void 도서_수정() throws Exception {
         //given
         String uri = "/api/books/{id}";
@@ -149,4 +175,5 @@ class BookControllerTest {
         then(bookService).should().updateShelfName(existingShelfName, "2");
         resultActions.andExpect(status().isNoContent());
     }
+
 }

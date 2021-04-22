@@ -40,12 +40,17 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public List<BookDto.Response> getBooksBySearch(int currentPage, Search search) {
-        return bookMapper.findAllBy(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT, search);
+        return bookMapper.findUsingLimitBy(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT, search);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BookDto.Response> getBooksByAutoCompleteSearch(Search search) {
+        return bookMapper.findBy(search);
     }
 
     @Transactional(readOnly = true)
     public List<Book> getBooks(int currentPage) {
-        return bookRepository.findAll(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT);
+        return bookRepository.findUsingLimit(Pagination.getRowCount(currentPage), Pagination.ROW_LIMIT);
     }
 
     @Transactional

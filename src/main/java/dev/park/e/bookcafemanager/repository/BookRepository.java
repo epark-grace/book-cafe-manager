@@ -10,7 +10,7 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM book ORDER BY id DESC LIMIT :rowCount, :rowLimit")
-    List<Book> findAll(@Param("rowCount") long rowCount, @Param("rowLimit") int rowLimit);
+    List<Book> findUsingLimit(@Param("rowCount") long rowCount, @Param("rowLimit") int rowLimit);
 
     List<Book> findByShelfName(String shelfName);
 }

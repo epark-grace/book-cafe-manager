@@ -4,6 +4,7 @@ import dev.park.e.bookcafemanager.converter.Converter;
 import dev.park.e.bookcafemanager.domain.Book;
 import dev.park.e.bookcafemanager.dto.BookDto;
 import dev.park.e.bookcafemanager.dto.HttpResponseBody;
+import dev.park.e.bookcafemanager.dto.Search;
 import dev.park.e.bookcafemanager.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,13 @@ public class BookController {
     @DeleteMapping(value = "api/books/{id}", produces = "application/json; charset=utf-8")
     public ResponseEntity<HttpResponseBody> deleteBookById(@PathVariable(name = "id") long id) {
         HttpResponseBody body = new HttpResponseBody("삭제되었습니다.", bookService.deleteBookById(id));
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "api/books", produces = "application/json; charset=utf-8")
+    public ResponseEntity<HttpResponseBody> getBooksByAutoCompleteSearch(@ModelAttribute Search search) {
+        List<BookDto.Response> booksDto = bookService.getBooksByAutoCompleteSearch(search);
+        HttpResponseBody body = new HttpResponseBody("", booksDto);
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 

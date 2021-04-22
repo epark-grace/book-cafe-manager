@@ -10,6 +10,6 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     long count(@Param("search") Search search);
-
-    List<BookDto.Response> findAllBy(@Param("rowCount") long rowCount, @Param("rowLimit") int rowLimit, @Param("search") Search search);
+    List<BookDto.Response> findUsingLimitBy(@Param("rowCount") long rowCount, @Param("rowLimit") int rowLimit, @Param("search") Search search);
+    List<BookDto.Response> findBy(@Param("search") Search search);
 }
