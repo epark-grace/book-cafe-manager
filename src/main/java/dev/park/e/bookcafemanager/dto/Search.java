@@ -20,6 +20,6 @@ public class Search {
     }
 
     public void setKeyword(String keyword) {
-        this.keyword = keyword.split("[^0-9a-zA-Z가-힣]+");
+        this.keyword = keyword.split("[^0-9a-zA-Z가-힣ㄱ-ㅎ]+");
     }
 }
