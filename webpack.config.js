@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     mode: "development",
     entry: {
+        "tailwind": "./src/main/frontend/css/tailwind.css",
         "book-list": "./src/main/frontend/entry/book-list.js",
         "shelf-editor": "./src/main/frontend/entry/shelf-editor.js",
         "book-creation-form": "./src/main/frontend/entry/book-creation-form.js"
@@ -16,13 +17,8 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 defaultVendors: {
+                    test: /[\\/]node_modules[\\/]/,
                     name: "vendors",
-                    chunks: "all",
-                    enforce: true
-                },
-                tailwind: {
-                    test: /tailwind\.css$/,
-                    name: "tailwind",
                     chunks: "all",
                     enforce: true
                 }

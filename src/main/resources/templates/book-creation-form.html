@@ -9,7 +9,8 @@
 <nav th:insert="fragment :: admin-menu"></nav>
 <div>
   <table id="book-creation-form">
-    <tr>
+    <tbody>
+    <tr data-book-id>
       <td>표지</td>
       <td>
         <form>
@@ -17,7 +18,9 @@
           <button type="submit">정보 불러오기</button>
         </form>
       </td>
-      <td><input type="text" placeholder="제목"></td>
+      <td>
+        <input type="text" data-type="title" placeholder="제목">
+      </td>
       <td>
         <select name="category">
           <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.name} == '미분류'">분류</option>
@@ -44,6 +47,7 @@
     <tr>
       <td colspan="9"><button>행 추가</button></td>
     </tr>
+    </tbody>
   </table>
   <button>도서 등록</button>
 </div>
