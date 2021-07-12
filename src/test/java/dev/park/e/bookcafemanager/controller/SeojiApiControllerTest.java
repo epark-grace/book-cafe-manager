@@ -34,14 +34,14 @@ class SeojiApiControllerTest {
     @Test
     void isbn으로_서지정보_조회() throws Exception {
         //given
-        String uri = "/api/seoji-info";
+        String uri = "/api/seoji-info/{isbn}";
         String isbn = "9791100000000";
         SeojiInfoDto seojiInfoDto = objectMapper.readValue(Paths.get("src/test/resources/seoji-api-response.json").toFile(), SeojiInfoDto.class);
         given(seojiApiService.getSeojiInfoByIsbn(isbn)).willReturn(seojiInfoDto);
         HttpResponseBody body = new HttpResponseBody("조회되었습니다.", seojiInfoDto);
 
         //when
-        ResultActions resultActions = mockMvc.perform(get(uri).param("isbn", isbn));
+        ResultActions resultActions = mockMvc.perform(get(uri, isbn));
 
         //then
         resultActions.andExpect(status().isOk())
